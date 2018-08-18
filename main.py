@@ -566,7 +566,7 @@ class DataCommands(MyPrompt):
             # if no args do a walk through
             if len(args) == 0:
                 end = input('Enter end goal \n')
-                step = input('How many weeks would you like to step by to create the check ins \n?')
+                step = input('How many weeks would you like to step by to create the check ins? \n')
             else:
                 # if args are provided try to use them
                 try:
