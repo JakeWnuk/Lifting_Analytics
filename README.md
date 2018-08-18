@@ -48,3 +48,14 @@ Example functions inside <b>Data</b>:
   <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
 </p>
 
+Calculating calories and macros inside <b>Data</b>:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/diet_example.JPG">
+</p>
+
+Creating a plan using your profile informatin <b>Data</b>:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/plan_example.JPG">
+</p>
+
+Note: to use <b>plan</b> you must first use <b>diet</b> in the data menu
