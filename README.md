@@ -14,6 +14,11 @@ RM represent 'rep max' or 'repetition maxium' this is the maxium number of reps 
 
 # Installing
 
+cmd shiz
+
+Launch by using a cmd or by running main.py
+
+
 # Log File
 
 A log file is needed to preform actions. You can create a blank log with <b>blank_log</b> in the file menu.
