@@ -14,7 +14,17 @@ RM represent 'rep max' or 'repetition maxium' this is the maxium number of reps 
 
 ### Installing
 
-cmd shiz
+Install requirements.txt using pip:
+'''
+For linux:
+python3 -m pip install -r <type the /path/to/requirements.txt
+
+For windows:
+pip install -r requirements.txt
+
+
+*after navigating to the project's directory in cmd
+'''
 
 Launch by using a cmd or by running main.py
 
@@ -59,3 +69,5 @@ Creating a plan using your profile informatin <b>Data</b>:
 </p>
 
 Note: to use <b>plan</b> you must first use <b>diet</b> in the data menu
+
+
