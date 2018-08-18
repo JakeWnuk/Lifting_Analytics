@@ -32,10 +32,3 @@ This is the proper formatting of a log file:
 Log files can be either excel or csv files
 
 After properly formatting the log file you can then load it in with <b>load</b> in the file menu.
-
-you can add a entry within the script by using <b>entry<b> in the file menu then save it with <b>save</b>.
-
-
-# Using the script
-
-After loading in a log you can type help for commands and help <command> for documentation on a specific command.
