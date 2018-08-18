@@ -33,5 +33,18 @@ Log files can be either excel or csv files
 
 After properly formatting the log file you can then load it in with <b>load</b> in the file menu.
 
-You can add entries to the loaded log file with <b>entry</b> in the file menu. You can also add entries manually but remember to increase the index col.
+You can add entries to the loaded log file with <b>entry</b> in the file menu. You can also add entries manually but remember to increase the index column.
+
+### Running the script
+
+You can either run the script in cmd or you can run main.py
+
+You can type <b>help</b> for a list of commands in the current menu or type <b>help command</b>
+
+The current aviable menus are file, data, and home type the name of a menu to access it's commands
+
+Example functions inside <b>Data</b>:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
+</p>
 
