@@ -17,7 +17,7 @@ RM represent 'rep max' or 'repetition maxium' this is the maxium number of reps 
 Install requirements.txt using pip:
 ```
 For linux:
-python3 -m pip install -r <type the /path/to/requirements.txt
+python3 -m pip install -r /path/to/requirements.txt
 
 For windows:
 pip install -r requirements.txt
