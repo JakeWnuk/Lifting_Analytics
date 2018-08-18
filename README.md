@@ -33,3 +33,5 @@ Log files can be either excel or csv files
 
 After properly formatting the log file you can then load it in with <b>load</b> in the file menu.
 
+You can add entries to the loaded log file with <b>entry</b> in the file menu. You can also add entries manually but remember to increase the index col.
+
