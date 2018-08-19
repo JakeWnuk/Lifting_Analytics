@@ -71,3 +71,30 @@ Creating a plan using your profile informatin <b>Data</b>:
 Note: to use <b>plan</b> you must first use <b>diet</b> in the data menu
 
 
+## Changes Log:
+
+Release 1.0:
+<ul>
+  <li>Launched with the following functions:</li>
+    <ul>
+      <li>max</li>
+      <li>top</li>
+      <li>rm</li>
+      <li>stats</li>
+      <li>wilks</li>
+      <li>past</li>
+      <li>age</li>
+      <li>pril</li>
+      <li>bf</li>
+      <li>diet</li>
+      <li>plan</li>
+    </ul
+  <li>Launched w</li>
+</ul>
+
+Planned 1.1:
+ <ul>
+  <li>Prints to consoles in different colors</li>
+  <li>New graphing functions</li>
+  
+</ul>
