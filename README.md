@@ -89,6 +89,14 @@ Release 1.0:
       <li>diet</li>
       <li>plan</li>
   </ul>
+    <li>Launched with the following file functions:</li>
+    <ul>
+      <li>load</li>
+      <li>blank_log</li>
+      <li>save</li>
+      <li>dir</li>
+      <li>entry</li>
+  </ul>
 </ul>
 Planned 1.1:
 <ul>
