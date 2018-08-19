@@ -89,7 +89,6 @@ Release 1.0:
       <li>diet</li>
       <li>plan</li>
     </ul
-  <li>Launched w</li>
 </ul>
 
 Planned 1.1:
