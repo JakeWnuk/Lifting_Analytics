@@ -88,12 +88,10 @@ Release 1.0:
       <li>bf</li>
       <li>diet</li>
       <li>plan</li>
-    </ul
+  </ul>
 </ul>
-
 Planned 1.1:
- <ul>
+<ul>
   <li>Prints to consoles in different colors</li>
   <li>New graphing functions</li>
-  
 </ul>
