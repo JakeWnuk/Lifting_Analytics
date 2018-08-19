@@ -560,6 +560,11 @@ class DataCommands(MyPrompt):
     def do_plan(args):
         """
         After creating a diet profile using diet(). Plan() will create a plan for you to achieve your next goal using your profile information.
+        Example:
+            plan -> walk through
+            plan 200 -> plans goal til 200 jumping by default (1 week)
+            plan 200, 2 -> plans goal til 200 jumping by 2 week intervals
+
         """
 
         try:
