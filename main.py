@@ -51,26 +51,32 @@ class MyPrompt(Cmd):
                                 /____/                        /____/          
                             """)
 
-        prompt.cmdloop('Jake Wnuk| Type help for commands | Type help <command> for documentation.')
+        prompt.cmdloop('\n Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
 
     @staticmethod
     def do_file(args):
-        """Opens the file options for saving/exporting session data"""
+        """
+        Opens the file options for saving/exporting session data
+        """
 
         n_cli = FileCommands()
         n_cli.prompt = '<File> '
-        n_cli.cmdloop('File Options Menu | type help for commands')
+        n_cli.cmdloop('\n File Options Menu | type help for commands')
 
     @staticmethod
     def do_data(args):
-        """Opens the options for analyzing the data"""
+        """
+        Opens the options for analyzing the data
+        """
         n_cli = DataCommands()
         n_cli.prompt = '<Data> '
-        n_cli.cmdloop('Data Analysis Menu | type help for commands')
+        n_cli.cmdloop('\n Data Analysis Menu | type help for commands')
 
     @staticmethod
     def do_author(args):
-        """About the author."""
+        """
+        About the author.
+        """
 
         if len(args) == 0:
             print(r"""
@@ -82,13 +88,17 @@ class MyPrompt(Cmd):
 
     @staticmethod
     def do_quit(args):
-        """Quits the program."""
+        """
+        Quits the program.
+        """
         print("Quitting.")
         raise SystemExit
 
     @staticmethod
     def do_walkthrough(args):
-        """Call on me when you do not know what to do"""
+        """
+        Call on me when you do not know what to do
+        """
         print(r"""
             
             Lifting Analytics Getting Started:
@@ -115,7 +125,8 @@ class FileCommands(MyPrompt):
 
     @staticmethod
     def do_load(args):
-        """Loads into a df a csv / excel file in a log file format. Launches a file selector.
+        """
+        Loads into a df a csv / excel file in a log file format. Launches a file selector.
         example: load -> File Selector -> Results
 
         Required Table Headers:
@@ -138,27 +149,25 @@ class FileCommands(MyPrompt):
             curr_log['Date'] = pd.to_datetime(curr_log.Date)
             curr_log = curr_log.sort_values(by='Date', ascending=False)
             curr_log = curr_log.reset_index(drop=True)
-            print("The log has been read in.")
+            print("The log has been read in. \n")
         except (FileNotFoundError, AttributeError):
-            print("File not found or compatible. Does the file have an unnamed index col?")
+            print("File not found or compatible. Does the file have an unnamed index col? \n")
 
     @staticmethod
     def do_blank_log(args):
         """
         Prints a blank log csv file to the selected dir
-
         """
 
-        if query_yes_no("Would you like to create a new blank log to " + str(curr_directory)):
+        if query_yes_no("Would you like to create a new blank log to " + str(curr_directory) +'\n'):
             blog = pd.DataFrame(columns=['Date', 'Lift', 'RM', 'Weight', 'Body Weight'])
             blog.to_csv(os.path.join(str(curr_directory), 'Blank Log.csv'))
-            print('The log has been saved to' + str(curr_directory))
+            print('The log has been saved to' + str(curr_directory) +'\n')
 
     @staticmethod
     def do_save(args):
         """
         Saves the sessions items to the selected dir
-
         """
 
         # if no args are provided do a walk through
@@ -169,7 +178,7 @@ class FileCommands(MyPrompt):
         if str(args).lower() == "log":
             global curr_log
 
-            if query_yes_no("Would you like to save this sessions log to " + str(curr_directory)):
+            if query_yes_no("Would you like to save this sessions log to " + str(curr_directory) + '\n'):
                 curr_log = curr_log.dropna(how='all')
                 curr_log['Lift'] = curr_log['Lift'].str.lower()
                 curr_log['Date'] = pd.to_datetime(curr_log.Date)
@@ -179,29 +188,30 @@ class FileCommands(MyPrompt):
                 curr_log.to_csv(
                     os.path.join(str(curr_directory), 'Lifting Log' + str(datetime.now().strftime("_%Y")) + ".csv"),
                     index=[0])
-                print('The log has been saved to ' + str(curr_directory))
+                print('The log has been saved to ' + str(curr_directory) + '\n')
         # checks for report
         elif str(args).lower() == "report":
-            print("No print report currently exists.")
+            print("No print report currently exists. \n")
         else:
-            print("Not a valid argument.")
+            print("Not a valid argument. \n")
 
     @staticmethod
     def do_dir(args):
-        """Changes the directory of the output file. Type dir to see the current name without changes. Type dir c to change.
+        """
+        Changes the directory of the output file. Type dir to see the current name without changes. Type dir c to change.
         example: dir -> The current directory is:
                  dir c -> opens a selector for a new path
         """
 
         global curr_directory  # Trying to think of a better way to do this
         if len(args) == 0:
-            print("The current directory is: " + str(curr_directory))
+            print("The current directory is: " + str(curr_directory) + '\n')
 
         # I don't actually check for 'C' in the args lmao
         else:
             tkinter.Tk().withdraw()
             curr_directory = tkinter.filedialog.askdirectory()
-            print("The current directory is: " + curr_directory)
+            print("The current directory is: " + str(curr_directory) + '\n')
 
     @staticmethod
     def do_entry(args):
@@ -230,13 +240,15 @@ class FileCommands(MyPrompt):
         curr_log = curr_log.sort_values(by='Date', ascending=False)
         curr_log = curr_log.reset_index(drop=True)
 
+        print('The entry has been added. \n')
 
 class DataCommands(MyPrompt):
     """ Houses all functions on data """
 
     @staticmethod
     def do_max(args):
-        """Finds the top estimated max for a lift in a specified time frame (weeks)
+        """
+        Finds the top estimated max for a lift in a specified time frame (weeks)
         example:
                 max -> walk through
                 max bench -> finds best bench of all time
@@ -261,14 +273,15 @@ class DataCommands(MyPrompt):
             if round(float(weeks)) < 1 or round(float(weeks)) > 9999:
                 weeks = 9999
 
-            print(log.top_max(curr_log, name, round(float(weeks))))
+            print('\n' + str(log.top_max(curr_log, name, round(float(weeks)))) + '\n')
 
         except KeyError:
-            print("Please check syntax or no results found")
+            print("\n Please check syntax or no results found \n")
 
     @staticmethod
     def do_top(args):
-        """Finds the top x RM set for a lift in the past y weeks
+        """
+        Finds the top x RM set for a lift in the past y weeks
         example:
                 top -> walk through
                 top bench, 9 -> finds best bench 9 rm of all time
@@ -299,10 +312,10 @@ class DataCommands(MyPrompt):
             if round(float(weeks)) < 1 or round(float(weeks)) > 9999:
                 weeks = 9999
 
-            print(log.top_max(curr_log, name, round(float(weeks)), reps=round(float(rm))))
+            print('\n'+str(log.top_max(curr_log, name, round(float(weeks)), reps=round(float(rm))))+'\n')
 
         except (KeyError, UnboundLocalError, IndexError, ValueError):
-            print("Please check syntax or no results found")
+            print("Please check syntax or no results found \n")
 
     @staticmethod
     def do_rm(args):
@@ -310,7 +323,6 @@ class DataCommands(MyPrompt):
         prints out the estimate RM table for a given weight and reps. Most accurate below 10 reps.
         example:
             rm 400, 5
-
         """
         try:
             # if no args do a walk through
@@ -327,14 +339,15 @@ class DataCommands(MyPrompt):
                 rm_table = rm_table.append({'Rep Max': i, "Weight": log.estimate_rm(i, float(weight), int(reps))},
                                            ignore_index=True)
             rm_table = rm_table.set_index('Rep Max')
-            print(rm_table)
+            print('\n'+str(rm_table)+'\n')
 
         except ValueError:
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_stats(args):
-        """reports stats for a lift in a specified time frame (weeks)
+        """
+        reports stats for a lift in a specified time frame (weeks)
         example:
                 stats -> walk through
                 stats bench -> finds stats about bench from all time
@@ -358,15 +371,16 @@ class DataCommands(MyPrompt):
             # error filtering
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
-
-            print(log.stats(curr_log, name, int(weeks)))
+            print('\n Stats using converted 1RMs:')
+            print(str(log.stats(curr_log, name, int(weeks)))+'\n')
 
         except (KeyError, ValueError):
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_wilks(args):
-        """reports the users estimated wilks score at a certain body weight
+        """
+        reports the users estimated wilks score at a certain body weight
         example:
                 wilks -> walk through
                 wilks 185 -> finds the best lifts @ 185 and estimates a wilks score
@@ -390,14 +404,16 @@ class DataCommands(MyPrompt):
                     weight = float(args)
                     gender = ''
 
+            print() # for formatting
+
             # filter for female
             if str(gender).lower().strip() in ['female', 'f']:
-                print(log.wilks(curr_log, int(round(weight)), male=False))
+                print(str(log.wilks(curr_log, int(round(weight)), male=False))+'\n')
             else:
-                print(log.wilks(curr_log, int(round(weight))))
+                print(str(log.wilks(curr_log, int(round(weight))))+'\n')
 
         except (KeyError, ValueError):
-            print("Not enough information found at that body weight")
+            print("Not enough information found at that body weight \n")
 
     @staticmethod
     def do_past(args):
@@ -431,10 +447,10 @@ class DataCommands(MyPrompt):
                 print(log.past(curr_log, int(weeks), lift=str(name).strip()))
                 return
             else:
-                print(log.past(curr_log, int(weeks)))
+                print('\n'+str(log.past(curr_log, int(weeks)))+'\n')
 
         except (KeyError, ValueError):
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_age(args):
@@ -449,7 +465,7 @@ class DataCommands(MyPrompt):
             'Last Entry': last.strftime('%m/%d/%Y'),
             'Age': (last - first)
         })
-        print(a.to_string())
+        print('\n'+a.to_string()+'\n')
 
     @staticmethod
     def do_pril(args):
@@ -479,10 +495,10 @@ class DataCommands(MyPrompt):
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
 
-            print(log.prilepin(curr_log, name, int(weeks)))
+            print('\n'+str(log.prilepin(curr_log, name, int(weeks)))+'\n')
 
         except (KeyError, ValueError):
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_bf(args):
@@ -506,7 +522,7 @@ class DataCommands(MyPrompt):
                     else:
                         gender = 'male'
                 except ValueError:
-                    print('Value Error')
+                    print('Value Error \n')
 
             if gender in ['f', 'female']:
                 gender = 'female'
@@ -514,10 +530,10 @@ class DataCommands(MyPrompt):
                 gender = 'male'
 
             bfp = log.bf(curr_log, gender)
-            print(bfp)
+            print('\n'+str(bfp)+'\n')
 
         except (KeyError, ValueError):
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_diet(args):
@@ -549,12 +565,12 @@ class DataCommands(MyPrompt):
             macro = log.macro(profile)  # runs macros
 
             print('\n Diet Information:')
-            print(profile.to_string())
+            print('\n'+ profile.to_string())
             print('\n Recommended Macros:')
-            print(macro.to_string())
+            print(macro.to_string() +'\n')
 
         except (KeyError, ValueError, UnboundLocalError):
-            print("Please check syntax")
+            print("Please check syntax \n")
 
     @staticmethod
     def do_plan(args):
@@ -582,10 +598,10 @@ class DataCommands(MyPrompt):
                     step = 1
 
             plan = log.plan(profile, end, step)
-            print(plan.to_string())
+            print('\n'+plan.to_string()+'\n')
 
         except (ValueError, KeyError):
-            print('Please check syntax')
+            print('Please check syntax \n')
 
 
 def query_yes_no(question, default="yes"):
@@ -624,7 +640,7 @@ def query_yes_no(question, default="yes"):
 if __name__ == '__main__':
     prompt = MyPrompt()
     prompt.prompt = '<Home> '
-    print(r"""
+    print("""
     __    _ ______  _                ___                __      __  _          
    / /   (_) __/ /_(_)___  ____ _   /   |  ____  ____ _/ /_  __/ /_(_)_________
   / /   / / /_/ __/ / __ \/ __ `/  / /| | / __ \/ __ `/ / / / / __/ / ___/ ___/
@@ -633,4 +649,4 @@ if __name__ == '__main__':
                         /____/                        /____/          
                     """)
 
-    prompt.cmdloop('Jake Wnuk| Type help for commands | Type help <command> for documentation.')
+    prompt.cmdloop('Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')

@@ -350,7 +350,7 @@ def stats(log, lift, w):
 
     # describing that new col
     col = log["EST_1RM"]
-    print('Stats using converted 1RMs:')
+
     return col.describe()
 
 
