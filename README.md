@@ -100,7 +100,6 @@ Release 1.0:
 </ul>
 Planned 1.1:
 <ul>
-  <li>Prints to terminal in different colors</li>
   <li>New graphing functions</li>
   <li>Creates a program using input</li>
 </ul>
