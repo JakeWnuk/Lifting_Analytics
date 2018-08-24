@@ -158,7 +158,7 @@ def diet(weight, bfp, goal, metric=False):
     rec = 0
     pot = 0
 
-    if goal in ['bulk', 'b']:
+    if goal.strip() in ['bulk', 'b']:
         goal = 'bulk'
         print('Muscle Growth Potential \n')
         print(b_table.to_string())
@@ -169,7 +169,7 @@ def diet(weight, bfp, goal, metric=False):
         else:
             rec = tde + (float(pot) * 0.453592) * 440
 
-    if goal in ['cut', 'c']:
+    if goal.strip() in ['cut', 'c']:
         goal = 'cut'
         print('Recommended Fat Loss Based on BF% \n')
         print(c_table.to_string())

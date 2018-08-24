@@ -9,6 +9,8 @@
  Input: A predictable template in a  excel or csv file.
 """
 
+# key error on load if template wrong
+
 import os
 import sys
 import tkinter
@@ -42,15 +44,9 @@ class MyPrompt(Cmd):
         """Return home"""
         n_cli = MyPrompt()
         n_cli.prompt = '<Home> '
-        print(r"""
-            __    _ ______  _                ___                __      __  _          
-           / /   (_) __/ /_(_)___  ____ _   /   |  ____  ____ _/ /_  __/ /_(_)_________
-          / /   / / /_/ __/ / __ \/ __ `/  / /| | / __ \/ __ `/ / / / / __/ / ___/ ___/
-         / /___/ / __/ /_/ / / / / /_/ /  / ___ |/ / / / /_/ / / /_/ / /_/ / /__(__  ) 
-        /_____/_/_/  \__/_/_/ /_/\__, /  /_/  |_/_/ /_/\__,_/_/\__, /\__/_/\___/____/  
-                                /____/                        /____/          
-                            """)
-
+        f = open('banner.txt','r')
+        banner = f.read()
+        print(banner)
         prompt.cmdloop('\n Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
 
     @staticmethod
@@ -640,13 +636,8 @@ def query_yes_no(question, default="yes"):
 if __name__ == '__main__':
     prompt = MyPrompt()
     prompt.prompt = '<Home> '
-    print("""
-    __    _ ______  _                ___                __      __  _          
-   / /   (_) __/ /_(_)___  ____ _   /   |  ____  ____ _/ /_  __/ /_(_)_________
-  / /   / / /_/ __/ / __ \/ __ `/  / /| | / __ \/ __ `/ / / / / __/ / ___/ ___/
- / /___/ / __/ /_/ / / / / /_/ /  / ___ |/ / / / /_/ / / /_/ / /_/ / /__(__  ) 
-/_____/_/_/  \__/_/_/ /_/\__, /  /_/  |_/_/ /_/\__,_/_/\__, /\__/_/\___/____/  
-                        /____/                        /____/          
-                    """)
+    f = open('banner.txt', 'r')
+    banner = f.read()
+    print(banner)
 
     prompt.cmdloop('Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
