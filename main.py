@@ -599,6 +599,37 @@ class DataCommands(MyPrompt):
         except (ValueError, KeyError):
             print('Please check syntax \n')
 
+    @staticmethod
+    def do_graph_weight(args):
+        """
+        reports stats for a lift in a specified time frame (weeks)
+        example:
+                stats -> walk through
+                stats bench -> finds stats about bench from all time
+                stats bench, 9 -> finds stats about bench from the last 9 weeks
+        """
+
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+                weeks = input('How many weeks would you like to look back? Type 0 for max. \n')
+            else:
+                # if args are provided try to use them
+                try:
+                    weeks = int(args)
+                # if only one args is provided use none
+                except ValueError:
+                    weeks = 0
+
+            # error filtering
+            if int(weeks) < 1 or int(weeks) > 9999:
+                weeks = 9999
+
+            log.graph_weight(curr_log, int(weeks))
+
+        except (KeyError, ValueError):
+            print("Please check syntax \n")
+
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.

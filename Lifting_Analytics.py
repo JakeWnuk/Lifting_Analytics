@@ -11,6 +11,7 @@ Description: File for the logic used in the main()
 import datetime
 import math
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def plan(profile, end, step=1):
@@ -464,3 +465,24 @@ def estimate_rm(req, weight, reps):
     x_rm = (one_rm * (48.8 + 53.8 * math.exp(-0.075 * req))) / 100
 
     return round(x_rm)
+
+def graph_weight(log, w):
+    log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
+    log = log.set_index('Date')
+    log = log['Body Weight']
+    log.plot(x='Body Weight', title='Body Weight Over Time')
+    plt.show()
+
+def testing():
+
+    curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
+
+
+    # do some formatting to ensure quality
+    curr_log['Lift'] = curr_log['Lift'].str.lower()
+    curr_log['Date'] = pd.to_datetime(curr_log.Date)
+    curr_log = curr_log.sort_values(by='Date', ascending=False)
+    curr_log = curr_log.reset_index(drop=True)
+    print("The log has been read in. \n")
+
+    graph_weight(curr_log, 7)
