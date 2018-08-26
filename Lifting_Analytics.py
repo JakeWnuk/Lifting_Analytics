@@ -467,11 +467,75 @@ def estimate_rm(req, weight, reps):
     return round(x_rm)
 
 def graph_weight(log, w):
+    """
+    graphs a users body weight over a period of time using matplotlib
+    :param log: a excel or csv file in the specified format
+    :param w: weeks as an int
+    :return: n/a
+    """
+
+    # filter for dates
     log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
+
+    # set an index to graph on
     log = log.set_index('Date')
+
+    # get rid of unneeded information
     log = log['Body Weight']
+
+    # do it up
     log.plot(x='Body Weight', title='Body Weight Over Time')
     plt.show()
+
+    return
+
+def graph_max(log, lift, w):
+    """
+    graphs the lifters max over the selected number of weeks
+    :param log: the excel or csv file
+    :param lift: the lift to be searched for
+    :param w: the number of weeks to look
+    :return: n/a
+    """
+
+    # filtering for lift and date
+    log = log.loc[
+        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))) & (
+            log['Lift'].str.contains(lift.lower()))].copy()
+
+    # set an index to graph on
+    log = log.set_index('Date')
+
+    # making a new col
+    for i, row in log.iterrows():
+        est_max = (estimate_rm(1, row['Weight'], row['RM']))
+        log.loc[i, 'EST_1RM'] = est_max
+
+    # get rid of unneeded information
+    log = log['EST_1RM']
+
+    # do it up
+    log.plot(x='EST_1RM', title='Max for ' + str(lift) + ' over time')
+    plt.show()
+
+    return
+
+def graph_lifts(log, w):
+
+    # filter for dates
+    log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
+
+    # set an index to graph on
+    log = log.set_index('Date')
+
+    # get rid of unneeded information
+    log = log['Lift']
+
+    # do it up
+    log.value_counts().plot.pie(title='Lift Frequency over the past ' + str(w) + ' weeks', autopct='%.2f', fontsize=12, figsize=(8, 8))
+    plt.show()
+
+    return
 
 def testing():
 
@@ -485,4 +549,4 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_weight(curr_log, 7)
+    graph_lifts(curr_log, 7)
