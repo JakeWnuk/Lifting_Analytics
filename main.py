@@ -636,7 +636,7 @@ class DataCommands(MyPrompt):
         example:
             graph_max -> walk through
             graph_max bench -> graph est 1rm for bench
-            graph_max bench, 9 -> graph est 1rm for bench from the past 9 weeks
+            graph_maxes bench, 9 -> graph est 1rm for bench from the past 9 weeks
         """
 
         try:

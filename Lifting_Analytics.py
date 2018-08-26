@@ -500,6 +500,8 @@ def graph_max(log, lift, w):
     :return: n/a
     """
 
+    # known issues: Graphing will break cmd. Incorrect labeling of legend for graph_max
+
     # filtering for lift and date
     log = log.loc[
         (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))].copy()
