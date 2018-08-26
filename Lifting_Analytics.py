@@ -502,8 +502,7 @@ def graph_max(log, lift, w):
 
     # filtering for lift and date
     log = log.loc[
-        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))) & (
-            log['Lift'].str.contains(lift.lower()))].copy()
+        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))].copy()
 
     # set an index to graph on
     log = log.set_index('Date')
@@ -514,10 +513,11 @@ def graph_max(log, lift, w):
         log.loc[i, 'EST_1RM'] = est_max
 
     # get rid of unneeded information
-    log = log['EST_1RM']
+    log = log.drop(columns=['RM', 'Body Weight', 'Weight'])
 
     # do it up
-    log.plot(x='EST_1RM', title='Max for ' + str(lift) + ' over time')
+    fig, ax = plt.subplots()
+    log.groupby('Lift').plot(title='Maxes over time', ax=ax)
     plt.show()
 
     return
@@ -557,4 +557,7 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_lifts(curr_log, 7)
+    graph_max(curr_log, 'bench', 9)
+
+
+testing()
