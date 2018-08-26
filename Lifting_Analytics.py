@@ -466,6 +466,7 @@ def estimate_rm(req, weight, reps):
 
     return round(x_rm)
 
+
 def graph_weight(log, w):
     """
     graphs a users body weight over a period of time using matplotlib
@@ -488,6 +489,7 @@ def graph_weight(log, w):
     plt.show()
 
     return
+
 
 def graph_max(log, lift, w):
     """
@@ -520,8 +522,14 @@ def graph_max(log, lift, w):
 
     return
 
-def graph_lifts(log, w):
 
+def graph_lifts(log, w):
+    """
+    Graphs the users lift frequency
+    :param log: log file used excel or csv format
+    :param w: weeks to be looked back
+    :return: n/a
+    """
     # filter for dates
     log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
 
@@ -532,15 +540,15 @@ def graph_lifts(log, w):
     log = log['Lift']
 
     # do it up
-    log.value_counts().plot.pie(title='Lift Frequency over the past ' + str(w) + ' weeks', autopct='%.2f', fontsize=12, figsize=(8, 8))
+    log.value_counts().plot.pie(title='Lift Frequency over the past ' + str(w) + ' weeks', autopct='%.2f', fontsize=12,
+                                figsize=(8, 8))
     plt.show()
 
     return
 
+
 def testing():
-
     curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
-
 
     # do some formatting to ensure quality
     curr_log['Lift'] = curr_log['Lift'].str.lower()
