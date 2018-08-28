@@ -486,9 +486,8 @@ def graph_weight(log, w):
 
     # do it up
     log.plot(x='Body Weight', title='Body Weight Over Time')
-    plt.show()
 
-    return
+    plt.show()
 
 
 def graph_max(log, lift, w):
@@ -502,9 +501,12 @@ def graph_max(log, lift, w):
 
     # known issues: Graphing will break cmd. Incorrect labeling of legend for graph_max
 
+    # do a for each and split each graph into one then merge them all. 
+
     # filtering for lift and date
     log = log.loc[
-        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))].copy()
+        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))&(
+            log['Lift'].str.contains(lift.lower()))].copy()
 
     # set an index to graph on
     log = log.set_index('Date')
@@ -518,11 +520,10 @@ def graph_max(log, lift, w):
     log = log.drop(columns=['RM', 'Body Weight', 'Weight'])
 
     # do it up
-    fig, ax = plt.subplots()
-    log.groupby('Lift').plot(title='Maxes over time', ax=ax)
+   # fig, ax = plt.subplots()
+   # log.groupby('Lift').plot(title='Est Maxes for' +str(lift)+'over time', ax=ax)
+    log.plot(title='Est Maxes for ' + str(lift) + ' over time')
     plt.show()
-
-    return
 
 
 def graph_lifts(log, w):
@@ -544,9 +545,8 @@ def graph_lifts(log, w):
     # do it up
     log.value_counts().plot.pie(title='Lift Frequency over the past ' + str(w) + ' weeks', autopct='%.2f', fontsize=12,
                                 figsize=(8, 8))
-    plt.show()
 
-    return
+    plt.show()
 
 
 def testing():
