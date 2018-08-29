@@ -101,5 +101,5 @@ Release 1.0:
 Planned 1.1:
 <ul>
   <li>New graphing functions</li>
-  <li>Creates a program using input</li>
+  <li>New data functions</li>
 </ul>
