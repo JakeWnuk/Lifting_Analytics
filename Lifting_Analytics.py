@@ -490,39 +490,39 @@ def graph_weight(log, w):
     plt.show()
 
 
-def graph_max(log, lift, w):
+def graph_maxes(log, w):
     """
     graphs the lifters max over the selected number of weeks
     :param log: the excel or csv file
-    :param lift: the lift to be searched for
     :param w: the number of weeks to look
     :return: n/a
     """
 
     # known issues: Graphing will break cmd. Incorrect labeling of legend for graph_max
 
-    # do a for each and split each graph into one then merge them all. 
+    # do a for each and split each graph into one then merge them all.
+    x = pd.unique(log['Lift'])
+    bag = []
 
-    # filtering for lift and date
-    log = log.loc[
-        (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))&(
-            log['Lift'].str.contains(lift.lower()))].copy()
+    for lift in x:
+        mold = log.loc[
+            (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))) & (
+                log['Lift'].str.contains(lift.lower()))].copy()
 
-    # set an index to graph on
-    log = log.set_index('Date')
+        # set an index to graph on
+        mold = mold.set_index('Date')
 
-    # making a new col
-    for i, row in log.iterrows():
-        est_max = (estimate_rm(1, row['Weight'], row['RM']))
-        log.loc[i, 'EST_1RM'] = est_max
+        # making a new col
+        for i, row in mold.iterrows():
+            est_max = (estimate_rm(1, row['Weight'], row['RM']))
+            mold.loc[i, 'EST_1RM'] = est_max
 
-    # get rid of unneeded information
-    log = log.drop(columns=['RM', 'Body Weight', 'Weight'])
+        # get rid of unneeded information
+        mold = mold.drop(columns=['RM', 'Body Weight', 'Weight'])
+        ax = mold.plot(title='Est Maxes for ' +str(lift)+' over time')
+        ax.legend([str(lift)])
+        bag.append(ax)
 
-    # do it up
-   # fig, ax = plt.subplots()
-   # log.groupby('Lift').plot(title='Est Maxes for' +str(lift)+'over time', ax=ax)
-    log.plot(title='Est Maxes for ' + str(lift) + ' over time')
     plt.show()
 
 
@@ -559,7 +559,6 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_max(curr_log, 'bench', 9)
+    graph_maxes(curr_log, 'bench', 9)
 
 
-testing()

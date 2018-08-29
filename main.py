@@ -630,36 +630,29 @@ class DataCommands(MyPrompt):
             print("Please check syntax \n")
 
     @staticmethod
-    def do_graph_max(args):
+    def do_graph_maxes(args):
         """
         Graphs the users lift max over a specified period
         example:
-            graph_max -> walk through
-            graph_max bench -> graph est 1rm for bench
-            graph_maxes bench, 9 -> graph est 1rm for bench from the past 9 weeks
+            graph_maxes -> walk through
+            graph_maxes 9 -> graph est 1rm from the past 9 weeks
         """
 
         try:
             # if no args do a walk through
             if len(args) == 0:
-                lift = input('What lift would you like to graph?')
+
                 weeks = input('How many weeks would you like to look back? Type 0 for max. \n')
             else:
-                # if args are provided try to use them
-                try:
-                    lift, weeks = [s for s in args.split(',')]
-                # if only one args is provided use none
-                except ValueError:
-                    lift = str(args)
-                    weeks = 0
+                weeks = int(args)
 
             # error filtering
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
 
-            log.graph_max(curr_log, str(lift).strip(), int(weeks))
+            log.graph_maxes(curr_log, int(weeks))
 
-        except (KeyError, ValueError):
+        except(KeyError, ValueError):
             print("Please check syntax \n")
 
     @staticmethod
