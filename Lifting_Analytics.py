@@ -529,7 +529,6 @@ def graph_maxes(log, w):
         ax.legend([str(lift)])
         bag.append(ax)
 
-
     plt.show()
 
 
@@ -556,6 +555,46 @@ def graph_freq(log, w):
     plt.show()
 
 
+def inol(log, lift, score, reps, weeks=4):
+    """
+    Used the INOL chart to give a recommended weight at an INOL score for a lift.
+    :param log: log file to be used
+    :param lift: lift being looked for
+    :param score: What INOL score you want
+    :param reps: How many total reps you want to do
+    :param weeks: how many weeks to look back to pull data
+    :return: an int showing the weight that should be done for X total reps to achieve the desired INOL
+
+    Source: https://drive.google.com/file/d/0B8EbfzFB0mBrSHE3UWgtcnd4Sms/view
+    """
+    # big chart
+    inol_map = pd.read_excel('INOL HEAT MAP.xlsx')
+
+    # getting that max
+    mx = top_max(log, lift, weeks)
+
+    # just checking
+    if reps > 50:
+        reps = 50
+
+    if reps < 1:
+        reps = 1
+
+    # locking the row and fetching the %
+    map = inol_map.iloc[reps - 1]
+    possible_list = map.values.tolist()
+
+    score = (min(possible_list, key=lambda x: abs(x - score)))
+
+    map = map.loc[map == score]
+    percentage = (map.index.get_values() / 100)
+
+    # fetches the rounded weight at that inol based off its %
+    inol_weight = round(float(percentage * mx[5]))
+
+    return inol_weight
+
+
 def testing():
     curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
 
@@ -566,5 +605,7 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_maxes(curr_log, 99)
+    x = inol(curr_log, 'bench', 2.5, 30)
+    print(x)
+
 

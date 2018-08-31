@@ -608,7 +608,7 @@ class DataCommands(MyPrompt):
             graph_weight -> walk through
             graph_weight 9 -> graph body weight from the past 9 weeks
         """
-
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
         try:
             # if no args do a walk through
             if len(args) == 0:
@@ -638,7 +638,7 @@ class DataCommands(MyPrompt):
             graph_maxes -> walk through
             graph_maxes 9 -> graph est 1rm from the past 9 weeks
         """
-
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
         try:
             # if no args do a walk through
             if len(args) == 0:
@@ -664,6 +664,7 @@ class DataCommands(MyPrompt):
             graph_freq -> walk through
             graph_freq 9 -> graph lifts from the past 9 weeks
         """
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
         try:
             # if no args do a walk through
             if len(args) == 0:
@@ -684,6 +685,35 @@ class DataCommands(MyPrompt):
 
         except (KeyError, ValueError):
             print("Please check syntax \n")
+
+    @staticmethod
+    def do_inol(args):
+        """
+        Calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
+        the Intensity(weight) and the number of lifts(NOL) otherwise known as INOL.
+
+        Recommendations for INOL scores are as following:
+
+        Single Workout INOL of a single exercise:
+        <0.4 | Too few reps, not enough stimulus
+        0.4-1 | fresh, quite doable and optimal if you are not accumulating fatigue
+        1-2 | though, but good for loading phases
+        >2 | brutal
+
+        Total Weekly INOL of a single exercise:
+        <2 | easy, doable, good to do after more tiring weeks and prepeaking
+        2-3 | tough but doable, good for loading phases between
+        3-4 | brutal, lots of fatigue, good for a limited time and shock microcycles
+        >4 | Are you out of your mind?
+
+        example:
+            inol -> walk through (recommended)
+            inol bench, 1.8, 25 -> calculates a 1.8 INOL weight for bench for 25 total reps
+        """
+
+        try:
+
+        except:
 
 
 def query_yes_no(question, default="yes"):
