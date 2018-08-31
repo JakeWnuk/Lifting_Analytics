@@ -20,6 +20,7 @@ from pathlib import Path
 from tkinter.filedialog import askopenfilename
 import pandas as pd
 import Lifting_Analytics as log
+import matplotlib.pyplot as plt
 
 # checks for latest version
 if sys.version_info[0] < 3:  # Tells the user what version is needed.
@@ -656,12 +657,12 @@ class DataCommands(MyPrompt):
             print("Please check syntax \n")
 
     @staticmethod
-    def do_graph_lifts(args):
+    def do_graph_freq(args):
         """
         Graphs the users lift frequency over a specified period
         example:
-            graph_lifts -> walk through
-            graph_lifts 9 -> graph lifts from the past 9 weeks
+            graph_freq -> walk through
+            graph_freq 9 -> graph lifts from the past 9 weeks
         """
         try:
             # if no args do a walk through
@@ -679,7 +680,7 @@ class DataCommands(MyPrompt):
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
 
-            log.graph_lifts(curr_log, int(weeks))
+            log.graph_freq(curr_log, int(weeks))
 
         except (KeyError, ValueError):
             print("Please check syntax \n")

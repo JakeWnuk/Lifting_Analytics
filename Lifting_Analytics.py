@@ -10,8 +10,9 @@ Description: File for the logic used in the main()
 
 import datetime
 import math
-import pandas as pd
+
 import matplotlib.pyplot as plt
+import pandas as pd
 
 
 def plan(profile, end, step=1):
@@ -287,6 +288,7 @@ def prilepin(log, lift, w):
     :return: string with the data frames
 
     Source: https://www.t-nation.com/training/prilepins-table-for-hypertrophy
+            https://www.powerliftingwatch.com/files/prelipins.pdf
     """
 
     # taking the best lift
@@ -485,7 +487,7 @@ def graph_weight(log, w):
     log = log['Body Weight']
 
     # do it up
-    log.plot(x='Body Weight', title='Body Weight Over Time')
+    log.plot(x='Body Weight', title='Body Weight over the past ' + str(w) + ' weeks')
 
     plt.show()
 
@@ -501,13 +503,13 @@ def graph_maxes(log, w):
     # known issues: Graphing will break cmd. Incorrect labeling of legend for graph_max
 
     # do a for each and split each graph into one then merge them all.
+    log = log.loc[pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))]
     x = pd.unique(log['Lift'])
     bag = []
+    print('Lifts being looked for: ' + str(x))
 
     for lift in x:
-        mold = log.loc[
-            (pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))) & (
-                log['Lift'].str.contains(lift.lower()))].copy()
+        mold = log.loc[(log['Lift'].str.contains(lift.lower()))].copy()
 
         # set an index to graph on
         mold = mold.set_index('Date')
@@ -519,14 +521,19 @@ def graph_maxes(log, w):
 
         # get rid of unneeded information
         mold = mold.drop(columns=['RM', 'Body Weight', 'Weight'])
-        ax = mold.plot(title='Est Maxes for ' +str(lift)+' over time')
+
+        ax = mold.plot(title='Est Maxes for ' + str(lift) + ' over the past ' + str(w) + ' weeks')
         ax.legend([str(lift)])
         bag.append(ax)
+        ax = mold.plot(title='Est Maxes for ' + str(lift) + ' over the past ' + str(w) + ' weeks', kind='box')
+        ax.legend([str(lift)])
+        bag.append(ax)
+
 
     plt.show()
 
 
-def graph_lifts(log, w):
+def graph_freq(log, w):
     """
     Graphs the users lift frequency
     :param log: log file used excel or csv format
@@ -559,6 +566,5 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_maxes(curr_log, 'bench', 9)
-
+    graph_maxes(curr_log, 99)
 
