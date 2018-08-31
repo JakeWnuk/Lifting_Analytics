@@ -573,17 +573,11 @@ def inol(log, lift, score, reps, weeks=4):
     # getting that max
     mx = top_max(log, lift, weeks)
 
-    # just checking
-    if reps > 50:
-        reps = 50
-
-    if reps < 1:
-        reps = 1
-
     # locking the row and fetching the %
     map = inol_map.iloc[reps - 1]
     possible_list = map.values.tolist()
 
+    # takes the nearest entered value in the list from the entered INOL. Takes minimum when tied.
     score = (min(possible_list, key=lambda x: abs(x - score)))
 
     map = map.loc[map == score]

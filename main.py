@@ -711,10 +711,47 @@ class DataCommands(MyPrompt):
             inol bench, 1.8, 25 -> calculates a 1.8 INOL weight for bench for 25 total reps
         """
 
+        # if no args do a walk through
         try:
+            if len(args) == 0:
+                lift = input('What lift would you like to use? \n')
+                score = input("        \n"
+                              "                    Recommendations for INOL scores are as following:\n"
+                              "            \n"
+                              "                    Single Workout INOL of a single exercise:\n"
+                              "                    <0.4 | Too few reps, not enough stimulus\n"
+                              "                    0.4-1 | fresh, quite doable and optimal if you are not accumulating fatigue\n"
+                              "                    1-2 | though, but good for loading phases\n"
+                              "                    >2 | brutal\n"
+                              "            \n"
+                              "                    Total Weekly INOL of a single exercise:\n"
+                              "                    <2 | easy, doable, good to do after more tiring weeks and prepeaking\n"
+                              "                    2-3 | tough but doable, good for loading phases between\n"
+                              "                    3-4 | brutal, lots of fatigue, good for a limited time and shock microcycles\n"
+                              "                    >4 | Are you out of your mind?\n"
+                              "                            \n"
+                              "                    For what INOL score would you like to use? \n")
+                reps = input('How many total reps would you like to perform? (1-50) \n')
 
-        except:
+            else:
+                # if args are provided try to use them
+                items = args.split(',')
+                lift = items[0].strip()
+                score = items[1]
+                reps = items[2]
 
+            # just checking
+            if int(reps) > 50:
+                reps = 50
+            if int(reps) < 1:
+                reps = 1
+
+            x = log.inol(curr_log, lift, float(score), int(reps))
+            print('\n Recommended weight for '+ str(lift) + ' over ' + str(reps) + ' total reps for a INOL of ' + str(score))
+            print('\n'+str(x)+'\n')
+
+        except ValueError:
+            print('Error')
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.
