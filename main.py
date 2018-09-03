@@ -20,7 +20,6 @@ from pathlib import Path
 from tkinter.filedialog import askopenfilename
 import pandas as pd
 import Lifting_Analytics as log
-import matplotlib.pyplot as plt
 
 # checks for latest version
 if sys.version_info[0] < 3:  # Tells the user what version is needed.

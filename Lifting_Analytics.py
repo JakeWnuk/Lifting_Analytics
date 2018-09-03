@@ -589,6 +589,26 @@ def inol(log, lift, score, reps, weeks=4):
     return inol_weight
 
 
+def sample(log, lift):
+    """
+    Creates a sample day
+    :return:
+
+    """
+
+    inol_list = [1, 1, 1, 1]
+    reps_list = [10, 20, 30, 40]
+    z = zip(inol_list, reps_list)
+    sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
+
+    for i in z:
+        x = inol(log, str(lift), i[0], i[1])
+        piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': i[1], 'INOL': i[0]}, index=[0])
+        sd = sd.append(piece, ignore_index=True, sort=False)
+
+    return sd
+
+
 def testing():
     curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
 
@@ -599,7 +619,10 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    x = inol(curr_log, 'bench', 2.5, 30)
+    print(top_max(curr_log, 'squat', 4))
+    # x = inol(curr_log, 'bench', 2.5, 30)
+    x = sample(curr_log, 'squat')
     print(x)
 
 
+testing()
