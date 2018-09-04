@@ -591,13 +591,13 @@ def inol(log, lift, score, reps, weeks=4):
 
 def sample(log, lift):
     """
-    Creates a sample day
+    Creates a sample progression scheme using INOL with each row in the df representing a new week
     :return:
 
     """
 
-    inol_list = [1, 1, 1, 1]
-    reps_list = [10, 20, 30, 40]
+    inol_list = [.75, .85, .75, .85, .95]
+    reps_list = [25, 25, 20, 20, 10]
     z = zip(inol_list, reps_list)
     sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
 
@@ -619,9 +619,9 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    print(top_max(curr_log, 'squat', 4))
+    print(top_max(curr_log, 'bench', 4))
     # x = inol(curr_log, 'bench', 2.5, 30)
-    x = sample(curr_log, 'squat')
+    x = sample(curr_log, 'bench')
     print(x)
 
 
