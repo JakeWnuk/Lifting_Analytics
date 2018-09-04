@@ -504,7 +504,7 @@ class DataCommands(MyPrompt):
             example:
             bf -> walk through
             bf male -> calculates bf% off last weight entry
-            bf female -> calculates bf$ off last weight entry
+            bf female -> calculates bf% off last weight entry
         """
 
         try:
@@ -597,7 +597,7 @@ class DataCommands(MyPrompt):
             print('\n' + plan.to_string() + '\n')
 
         except (ValueError, KeyError):
-            print('Please check syntax \n')
+            print('Please check syntax \n Have you run diet() first?')
 
     @staticmethod
     def do_graph_weight(args):
@@ -751,6 +751,37 @@ class DataCommands(MyPrompt):
 
         except ValueError:
             print('Error')
+
+    @staticmethod
+    def do_sample(args):
+        """
+        Creates a sample progression for the requested lift using the INOL chart. Each row represents a new session.
+
+        example:
+                sample -> walk through
+                sample squat -> shows INOL progression for squat
+                sample squat, volume -> shows the volume INOL progression for squat
+        """
+
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+                name = input('What lift would you like to use for a sample? \n')
+                template = input('What template would you like to use?')
+            else:
+                # if args are provided try to use them
+                try:
+                    name, template = [s for s in args.split(',')]
+                # if only one args is provided use none
+                except ValueError:
+                    name = args
+                    template = 'average'
+
+
+            print('\n' + str(log.sample(curr_log, str(name), str(template).strip())) + '\n')
+
+        except KeyError:
+            print("\n Please check syntax or no results found \n")
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.

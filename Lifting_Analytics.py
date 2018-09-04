@@ -209,10 +209,15 @@ def bf(log, gender, metric=False):
     Source: https://rippedbody.com/how-calculate-body-fat-percentage/
     """
 
+    if metric:
+        unit = 'cm'
+    else:
+        unit = 'inches'
+
     # collecting info
     bfp = 0
     cur_wght = log.loc[0]['Body Weight']
-    height = input('What is your current height? In inches or cm  \n')
+    height = input('What is your current height? In ' + str(unit) + '\n')
     waist = input('What is the measurement of your waist at navel? \n')
     neck = input("What is the measurement of your neck at its narrowest? \n")
     hips = 'N/A'
@@ -589,40 +594,31 @@ def inol(log, lift, score, reps, weeks=4):
     return inol_weight
 
 
-def sample(log, lift):
+def sample(log, lift, key='average'):
     """
     Creates a sample progression scheme using INOL with each row in the df representing a new week
-    :return:
 
+    :param key: key used in the dict to specify what template
+    :param log: log filed used for est 1RM
+    :type lift: object lift being looked for
+    :return: tuple of a volume template and a intensity template
     """
+    # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
+    program_dict = {
+                    'volume': ([.75, .85, .75, .85, .95],[25, 25, 20, 20, 10]),
+                    'average': ([.75, .95, .85, 1.05, 1.2], [25, 25, 20, 20, 15])
+                    }
 
-    inol_list = [.75, .85, .75, .85, .95]
-    reps_list = [25, 25, 20, 20, 10]
-    z = zip(inol_list, reps_list)
+    # creates a tuple holding lists and the df
+    z = zip(program_dict[key][0], program_dict[key][1])
     sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
 
+    # iteration
     for i in z:
         x = inol(log, str(lift), i[0], i[1])
         piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': i[1], 'INOL': i[0]}, index=[0])
         sd = sd.append(piece, ignore_index=True, sort=False)
 
+    print(' \n Using template: ' + str(key))
     return sd
 
-
-def testing():
-    curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
-
-    # do some formatting to ensure quality
-    curr_log['Lift'] = curr_log['Lift'].str.lower()
-    curr_log['Date'] = pd.to_datetime(curr_log.Date)
-    curr_log = curr_log.sort_values(by='Date', ascending=False)
-    curr_log = curr_log.reset_index(drop=True)
-    print("The log has been read in. \n")
-
-    print(top_max(curr_log, 'bench', 4))
-    # x = inol(curr_log, 'bench', 2.5, 30)
-    x = sample(curr_log, 'bench')
-    print(x)
-
-
-testing()
