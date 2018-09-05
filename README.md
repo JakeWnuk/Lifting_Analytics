@@ -98,8 +98,16 @@ Release 1.0:
       <li>entry</li>
   </ul>
 </ul>
-Planned 1.1:
+Release 1.1:
 <ul>
-  <li>New graphing functions</li>
-  <li>New data functions</li>
+  <li>Added the following functions:</li>
+    <ul>
+      <li>graph_weight</li>
+      <li>graph_maxes</li>
+      <li>graph_freq</li>
+      <li>inol</li>
+      <li>sample</li>
+  </ul>
+  <li>Improved readability</li>
+  <li>Updated documentation</li>
 </ul>
