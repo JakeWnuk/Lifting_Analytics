@@ -781,7 +781,7 @@ class DataCommands(MyPrompt):
             print('\n' + str(log.sample(curr_log, str(name), str(template).strip())) + '\n')
 
         except KeyError:
-            print("\n Please check syntax or no results found \n")
+            print("\n Please check syntax \n")
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.
