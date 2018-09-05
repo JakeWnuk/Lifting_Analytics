@@ -1,6 +1,6 @@
 # Lifting_Analytics
 ```
-current version = 1.0
+current version = 1.1
 ```
 
 ### About
