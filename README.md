@@ -1,6 +1,6 @@
 # Lifting_Analytics
 ```
-current version = 1.0
+current version = 1.1
 ```
 
 ### About
@@ -77,29 +77,38 @@ Release 1.0:
 <ul>
   <li>Launched with the following functions:</li>
     <ul>
-      <li>max</li>
-      <li>top</li>
-      <li>rm</li>
-      <li>stats</li>
-      <li>wilks</li>
-      <li>past</li>
-      <li>age</li>
-      <li>pril</li>
-      <li>bf</li>
-      <li>diet</li>
-      <li>plan</li>
+      <li><b>max</b>: finds the top estimated max for a lift in a specified time frame (weeks)</li>
+      <li><b>top</b>: finds the top x RM set for a lift in the past y weeks</li>
+      <li><b>rm</b>: prints out the estimate RM table for a given weight and reps. Most accurate below 10 reps.</li>
+      <li><b>stats</b>: reports stats for a lift in a specified time frame (weeks)</li>
+      <li><b>wilks</b>: reports the users estimated wilks score at a certain body weight</li>
+      <li><b>past</b>: finds the past sessions within the past x weeks or the past x sessions for y lift</li>
+      <li><b>age</b>: prints the first and last entry for the log and how many days are tracked in the log.</li>
+      <li><b>pril</b>: generates Prilepin's Chart and a Hypertrophy version. The standard one is considered useful for power movements and the hypertrophy one is good for volume training.</li>
+      <li><b>bf</b>: calculates the users bf% using the navy seal method</li>
+      <li><b>diet</b>: calculates the users TDEE / recommended caloric intake, Recommends calories for bulking & cutting and recommends macros based on goal.</li>
+      <li><b>plan</b>: after creating a diet profile using diet(). Plan() will create a plan for you to achieve your next goal using your profile information.</li>
   </ul>
     <li>Launched with the following file functions:</li>
     <ul>
-      <li>load</li>
-      <li>blank_log</li>
-      <li>save</li>
-      <li>dir</li>
-      <li>entry</li>
+      <li><b>load</b>: Loads into a df a csv / excel file in a log file format. Launches a file selector.</li>
+      <li><b>blank_log</b>: Prints a blank log csv file to the selected dir</li>
+      <li><b>save</b>: Saves the sessions items to the selected directory</li>
+      <li><b>dir</b>: Changes the directory of the output file.</li>
+      <li><b>entry</b>: Creates a new entry in the loaded log file</li>
   </ul>
 </ul>
-Planned 1.1:
+Release 1.1:
 <ul>
-  <li>New graphing functions</li>
-  <li>New data functions</li>
+  <li>Added the following functions:</li>
+    <ul>
+      <li><b>graph_weight</b>: graphs the users body weight over a specified period</li>
+      <li><b>graph_maxes</b>: graphs the users lift max over a specified period</li>
+      <li><b>graph_freq</b>: graphs the users lift frequency over a specified period</li>
+      <li><b>inol</b>: calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
+        the intensity(weight) and the number of lifts(NOL) otherwise known as INOL.</li>
+      <li><b>sample</b>: creates a sample progression for the requested lift using the INOL chart.</li>
+  </ul>
+  <li>Improved readability</li>
+  <li>Updated documentation</li>
 </ul>
