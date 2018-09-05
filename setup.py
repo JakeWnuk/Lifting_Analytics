@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Lifting_Analytics',
-    version='1.0',
+    version='1.1',
     packages=['env.Lib.distutils', 'env.Lib.encodings', 'env.Lib.importlib', 'env.Lib.collections',
               'env.Lib.site-packages.pip', 'env.Lib.site-packages.pip._vendor',
               'env.Lib.site-packages.pip._vendor.idna', 'env.Lib.site-packages.pip._vendor.pytoml',

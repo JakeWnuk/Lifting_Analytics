@@ -10,6 +10,8 @@ Description: File for the logic used in the main()
 
 import datetime
 import math
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -207,10 +209,15 @@ def bf(log, gender, metric=False):
     Source: https://rippedbody.com/how-calculate-body-fat-percentage/
     """
 
+    if metric:
+        unit = 'cm'
+    else:
+        unit = 'inches'
+
     # collecting info
     bfp = 0
     cur_wght = log.loc[0]['Body Weight']
-    height = input('What is your current height? In inches or cm  \n')
+    height = input('What is your current height? In ' + str(unit) + '\n')
     waist = input('What is the measurement of your waist at navel? \n')
     neck = input("What is the measurement of your neck at its narrowest? \n")
     hips = 'N/A'
@@ -286,6 +293,7 @@ def prilepin(log, lift, w):
     :return: string with the data frames
 
     Source: https://www.t-nation.com/training/prilepins-table-for-hypertrophy
+            https://www.powerliftingwatch.com/files/prelipins.pdf
     """
 
     # taking the best lift
@@ -464,3 +472,153 @@ def estimate_rm(req, weight, reps):
     x_rm = (one_rm * (48.8 + 53.8 * math.exp(-0.075 * req))) / 100
 
     return round(x_rm)
+
+
+def graph_weight(log, w):
+    """
+    graphs a users body weight over a period of time using matplotlib
+    :param log: a excel or csv file in the specified format
+    :param w: weeks as an int
+    :return: n/a
+    """
+
+    # filter for dates
+    log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
+
+    # set an index to graph on
+    log = log.set_index('Date')
+
+    # get rid of unneeded information
+    log = log['Body Weight']
+
+    # do it up
+    log.plot(x='Body Weight', title='Body Weight over the past ' + str(w) + ' weeks')
+
+    plt.show()
+
+
+def graph_maxes(log, w):
+    """
+    graphs the lifters max over the selected number of weeks
+    :param log: the excel or csv file
+    :param w: the number of weeks to look
+    :return: n/a
+    """
+
+    # known issues: Graphing will break cmd. Incorrect labeling of legend for graph_max
+
+    # do a for each and split each graph into one then merge them all.
+    log = log.loc[pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w))]
+    x = pd.unique(log['Lift'])
+    bag = []
+    print('Lifts being looked for: ' + str(x))
+
+    for lift in x:
+        mold = log.loc[(log['Lift'].str.contains(lift.lower()))].copy()
+
+        # set an index to graph on
+        mold = mold.set_index('Date')
+
+        # making a new col
+        for i, row in mold.iterrows():
+            est_max = (estimate_rm(1, row['Weight'], row['RM']))
+            mold.loc[i, 'EST_1RM'] = est_max
+
+        # get rid of unneeded information
+        mold = mold.drop(columns=['RM', 'Body Weight', 'Weight'])
+
+        ax = mold.plot(title='Est Maxes for ' + str(lift) + ' over the past ' + str(w) + ' weeks')
+        ax.legend([str(lift)])
+        bag.append(ax)
+        ax = mold.plot(title='Est Maxes for ' + str(lift) + ' over the past ' + str(w) + ' weeks', kind='box')
+        ax.legend([str(lift)])
+        bag.append(ax)
+
+    plt.show()
+
+
+def graph_freq(log, w):
+    """
+    Graphs the users lift frequency
+    :param log: log file used excel or csv format
+    :param w: weeks to be looked back
+    :return: n/a
+    """
+    # filter for dates
+    log = log.loc[(pd.to_datetime(log['Date']) >= pd.Timestamp(datetime.date.today() - datetime.timedelta(weeks=w)))]
+
+    # set an index to graph on
+    log = log.set_index('Date')
+
+    # get rid of unneeded information
+    log = log['Lift']
+
+    # do it up
+    log.value_counts().plot.pie(title='Lift Frequency over the past ' + str(w) + ' weeks', autopct='%.2f', fontsize=12,
+                                figsize=(8, 8))
+
+    plt.show()
+
+
+def inol(log, lift, score, reps, weeks=4):
+    """
+    Used the INOL chart to give a recommended weight at an INOL score for a lift.
+    :param log: log file to be used
+    :param lift: lift being looked for
+    :param score: What INOL score you want
+    :param reps: How many total reps you want to do
+    :param weeks: how many weeks to look back to pull data
+    :return: an int showing the weight that should be done for X total reps to achieve the desired INOL
+
+    Source: https://drive.google.com/file/d/0B8EbfzFB0mBrSHE3UWgtcnd4Sms/view
+    """
+    # big chart
+    inol_map = pd.read_excel('INOL HEAT MAP.xlsx')
+
+    # getting that max
+    mx = top_max(log, lift, weeks)
+
+    # locking the row and fetching the %
+    map = inol_map.iloc[reps - 1]
+    possible_list = map.values.tolist()
+
+    # takes the nearest entered value in the list from the entered INOL. Takes minimum when tied.
+    score = (min(possible_list, key=lambda x: abs(x - score)))
+
+    map = map.loc[map == score]
+    percentage = (map.index.get_values() / 100)
+
+    # fetches the rounded weight at that inol based off its %
+    inol_weight = round(float(percentage * mx[5]))
+
+    return inol_weight
+
+
+def sample(log, lift, key='average'):
+    """
+    Creates a sample progression scheme using INOL with each row in the df representing a new week
+
+    :param key: key used in the dict to specify what template
+    :param log: log filed used for est 1RM
+    :type lift: object lift being looked for
+    :return: tuple of a volume template and a intensity template
+    """
+    # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
+    program_dict = {
+                    'volume': ([.75, .85, .75, .85, .95],[25, 25, 20, 20, 10]),
+                    'average': ([.75, .95, .85, 1.05, 1.2], [25, 25, 20, 20, 15])
+                    }
+
+    # creates a tuple holding lists and the df
+    z = zip(program_dict[key][0], program_dict[key][1])
+    sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
+
+    # iteration
+    for i in z:
+        x = inol(log, str(lift), i[0], i[1])
+        piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': i[1], 'INOL': i[0]}, index=[0])
+        sd = sd.append(piece, ignore_index=True, sort=False)
+
+    print(' \n Using template: ' + str(key))
+    return sd
+

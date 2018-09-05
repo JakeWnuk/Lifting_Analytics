@@ -44,7 +44,7 @@ class MyPrompt(Cmd):
         """Return home"""
         n_cli = MyPrompt()
         n_cli.prompt = '<Home> '
-        f = open('banner.txt','r')
+        f = open('banner.txt', 'r')
         banner = f.read()
         print(banner)
         prompt.cmdloop('\n Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
@@ -155,10 +155,10 @@ class FileCommands(MyPrompt):
         Prints a blank log csv file to the selected dir
         """
 
-        if query_yes_no("Would you like to create a new blank log to " + str(curr_directory) +'\n'):
+        if query_yes_no("Would you like to create a new blank log to " + str(curr_directory) + '\n'):
             blog = pd.DataFrame(columns=['Date', 'Lift', 'RM', 'Weight', 'Body Weight'])
             blog.to_csv(os.path.join(str(curr_directory), 'Blank Log.csv'))
-            print('The log has been saved to' + str(curr_directory) +'\n')
+            print('The log has been saved to' + str(curr_directory) + '\n')
 
     @staticmethod
     def do_save(args):
@@ -238,6 +238,7 @@ class FileCommands(MyPrompt):
 
         print('The entry has been added. \n')
 
+
 class DataCommands(MyPrompt):
     """ Houses all functions on data """
 
@@ -308,7 +309,7 @@ class DataCommands(MyPrompt):
             if round(float(weeks)) < 1 or round(float(weeks)) > 9999:
                 weeks = 9999
 
-            print('\n'+str(log.top_max(curr_log, name, round(float(weeks)), reps=round(float(rm))))+'\n')
+            print('\n' + str(log.top_max(curr_log, name, round(float(weeks)), reps=round(float(rm)))) + '\n')
 
         except (KeyError, UnboundLocalError, IndexError, ValueError):
             print("Please check syntax or no results found \n")
@@ -335,7 +336,7 @@ class DataCommands(MyPrompt):
                 rm_table = rm_table.append({'Rep Max': i, "Weight": log.estimate_rm(i, float(weight), int(reps))},
                                            ignore_index=True)
             rm_table = rm_table.set_index('Rep Max')
-            print('\n'+str(rm_table)+'\n')
+            print('\n' + str(rm_table) + '\n')
 
         except ValueError:
             print("Please check syntax \n")
@@ -368,7 +369,7 @@ class DataCommands(MyPrompt):
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
             print('\n Stats using converted 1RMs:')
-            print(str(log.stats(curr_log, name, int(weeks)))+'\n')
+            print(str(log.stats(curr_log, name, int(weeks))) + '\n')
 
         except (KeyError, ValueError):
             print("Please check syntax \n")
@@ -400,13 +401,13 @@ class DataCommands(MyPrompt):
                     weight = float(args)
                     gender = ''
 
-            print() # for formatting
+            print()  # for formatting
 
             # filter for female
             if str(gender).lower().strip() in ['female', 'f']:
-                print(str(log.wilks(curr_log, int(round(weight)), male=False))+'\n')
+                print(str(log.wilks(curr_log, int(round(weight)), male=False)) + '\n')
             else:
-                print(str(log.wilks(curr_log, int(round(weight))))+'\n')
+                print(str(log.wilks(curr_log, int(round(weight)))) + '\n')
 
         except (KeyError, ValueError):
             print("Not enough information found at that body weight \n")
@@ -443,7 +444,7 @@ class DataCommands(MyPrompt):
                 print(log.past(curr_log, int(weeks), lift=str(name).strip()))
                 return
             else:
-                print('\n'+str(log.past(curr_log, int(weeks)))+'\n')
+                print('\n' + str(log.past(curr_log, int(weeks))) + '\n')
 
         except (KeyError, ValueError):
             print("Please check syntax \n")
@@ -461,7 +462,7 @@ class DataCommands(MyPrompt):
             'Last Entry': last.strftime('%m/%d/%Y'),
             'Age': (last - first)
         })
-        print('\n'+a.to_string()+'\n')
+        print('\n' + a.to_string() + '\n')
 
     @staticmethod
     def do_pril(args):
@@ -491,7 +492,7 @@ class DataCommands(MyPrompt):
             if int(weeks) < 1 or int(weeks) > 9999:
                 weeks = 9999
 
-            print('\n'+str(log.prilepin(curr_log, name, int(weeks)))+'\n')
+            print('\n' + str(log.prilepin(curr_log, name, int(weeks))) + '\n')
 
         except (KeyError, ValueError):
             print("Please check syntax \n")
@@ -503,7 +504,7 @@ class DataCommands(MyPrompt):
             example:
             bf -> walk through
             bf male -> calculates bf% off last weight entry
-            bf female -> calculates bf$ off last weight entry
+            bf female -> calculates bf% off last weight entry
         """
 
         try:
@@ -526,7 +527,7 @@ class DataCommands(MyPrompt):
                 gender = 'male'
 
             bfp = log.bf(curr_log, gender)
-            print('\n'+str(bfp)+'\n')
+            print('\n' + str(bfp) + '\n')
 
         except (KeyError, ValueError):
             print("Please check syntax \n")
@@ -561,9 +562,9 @@ class DataCommands(MyPrompt):
             macro = log.macro(profile)  # runs macros
 
             print('\n Diet Information:')
-            print('\n'+ profile.to_string())
+            print('\n' + profile.to_string())
             print('\n Recommended Macros:')
-            print(macro.to_string() +'\n')
+            print(macro.to_string() + '\n')
 
         except (KeyError, ValueError, UnboundLocalError):
             print("Please check syntax \n")
@@ -576,7 +577,6 @@ class DataCommands(MyPrompt):
             plan -> walk through
             plan 200 -> plans goal til 200 jumping by default (1 week)
             plan 200, 2 -> plans goal til 200 jumping by 2 week intervals
-
         """
 
         try:
@@ -594,11 +594,194 @@ class DataCommands(MyPrompt):
                     step = 1
 
             plan = log.plan(profile, end, step)
-            print('\n'+plan.to_string()+'\n')
+            print('\n' + plan.to_string() + '\n')
 
         except (ValueError, KeyError):
-            print('Please check syntax \n')
+            print('Please check syntax \n Have you run diet() first?')
 
+    @staticmethod
+    def do_graph_weight(args):
+        """
+        Graphs the users body weight over a specified period
+        example:
+            graph_weight -> walk through
+            graph_weight 9 -> graph body weight from the past 9 weeks
+        """
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+                weeks = input('How many weeks would you like to look back? Type 0 for max. \n')
+            else:
+                # if args are provided try to use them
+                try:
+                    weeks = int(args)
+                # if only one args is provided use none
+                except ValueError:
+                    weeks = 0
+
+            # error filtering
+            if int(weeks) < 1 or int(weeks) > 9999:
+                weeks = 9999
+
+            log.graph_weight(curr_log, int(weeks))
+
+        except (KeyError, ValueError):
+            print("Please check syntax \n")
+
+    @staticmethod
+    def do_graph_maxes(args):
+        """
+        Graphs the users lift max over a specified period
+        example:
+            graph_maxes -> walk through
+            graph_maxes 9 -> graph est 1rm from the past 9 weeks
+        """
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+
+                weeks = input('How many weeks would you like to look back? Type 0 for max. \n')
+            else:
+                weeks = int(args)
+
+            # error filtering
+            if int(weeks) < 1 or int(weeks) > 9999:
+                weeks = 9999
+
+            log.graph_maxes(curr_log, int(weeks))
+
+        except(KeyError, ValueError):
+            print("Please check syntax \n")
+
+    @staticmethod
+    def do_graph_freq(args):
+        """
+        Graphs the users lift frequency over a specified period
+        example:
+            graph_freq -> walk through
+            graph_freq 9 -> graph lifts from the past 9 weeks
+        """
+        print('WARNING: Creating a graph will interrupt the CLI. Type CTRL+C to escape.')
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+                weeks = input('How many weeks would you like to look back? Type 0 for max. \n')
+            else:
+                # if args are provided try to use them
+                try:
+                    weeks = int(args)
+                # if only one args is provided use none
+                except ValueError:
+                    weeks = 0
+
+            # error filtering
+            if int(weeks) < 1 or int(weeks) > 9999:
+                weeks = 9999
+
+            log.graph_freq(curr_log, int(weeks))
+
+        except (KeyError, ValueError):
+            print("Please check syntax \n")
+
+    @staticmethod
+    def do_inol(args):
+        """
+        Calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
+        the Intensity(weight) and the number of lifts(NOL) otherwise known as INOL.
+
+        Recommendations for INOL scores are as following:
+
+        Single Workout INOL of a single exercise:
+        <0.4 | Too few reps, not enough stimulus
+        0.4-1 | fresh, quite doable and optimal if you are not accumulating fatigue
+        1-2 | though, but good for loading phases
+        >2 | brutal
+
+        Total Weekly INOL of a single exercise:
+        <2 | easy, doable, good to do after more tiring weeks and prepeaking
+        2-3 | tough but doable, good for loading phases between
+        3-4 | brutal, lots of fatigue, good for a limited time and shock microcycles
+        >4 | Are you out of your mind?
+
+        example:
+            inol -> walk through (recommended)
+            inol bench, 1.8, 25 -> calculates a 1.8 INOL weight for bench for 25 total reps
+        """
+
+        # if no args do a walk through
+        try:
+            if len(args) == 0:
+                lift = input('What lift would you like to use? \n')
+                score = input("        \n"
+                              "                    Recommendations for INOL scores are as following:\n"
+                              "            \n"
+                              "                    Single Workout INOL of a single exercise:\n"
+                              "                    <0.4 | Too few reps, not enough stimulus\n"
+                              "                    0.4-1 | fresh, quite doable and optimal if you are not accumulating fatigue\n"
+                              "                    1-2 | though, but good for loading phases\n"
+                              "                    >2 | brutal\n"
+                              "            \n"
+                              "                    Total Weekly INOL of a single exercise:\n"
+                              "                    <2 | easy, doable, good to do after more tiring weeks and prepeaking\n"
+                              "                    2-3 | tough but doable, good for loading phases between\n"
+                              "                    3-4 | brutal, lots of fatigue, good for a limited time and shock microcycles\n"
+                              "                    >4 | Are you out of your mind?\n"
+                              "                            \n"
+                              "                    For what INOL score would you like to use? \n")
+                reps = input('How many total reps would you like to perform? (1-50) \n')
+
+            else:
+                # if args are provided try to use them
+                items = args.split(',')
+                lift = items[0].strip()
+                score = items[1]
+                reps = items[2]
+
+            # just checking
+            if int(reps) > 50:
+                reps = 50
+            if int(reps) < 1:
+                reps = 1
+
+            x = log.inol(curr_log, lift, float(score), int(reps))
+            print('\n Recommended weight for '+ str(lift) + ' over ' + str(reps) + ' total reps for a INOL of ' + str(score))
+            print('\n'+str(x)+'\n')
+
+        except ValueError:
+            print('Error')
+
+    @staticmethod
+    def do_sample(args):
+        """
+        Creates a sample progression for the requested lift using the INOL chart. Each row represents a new session.
+
+        example:
+                sample -> walk through
+                sample squat -> shows INOL progression for squat
+                sample squat, volume -> shows the volume INOL progression for squat
+        """
+
+        try:
+            # if no args do a walk through
+            if len(args) == 0:
+                name = input('What lift would you like to use for a sample? \n')
+                template = input('What template would you like to use?')
+            else:
+                # if args are provided try to use them
+                try:
+                    name, template = [s for s in args.split(',')]
+                # if only one args is provided use none
+                except ValueError:
+                    name = args
+                    template = 'average'
+
+
+            print('\n' + str(log.sample(curr_log, str(name), str(template).strip())) + '\n')
+
+        except KeyError:
+            print("\n Please check syntax or no results found \n")
 
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.
