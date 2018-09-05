@@ -212,7 +212,7 @@ class FileCommands(MyPrompt):
     @staticmethod
     def do_entry(args):
         """
-        Creates a new entry in the log file
+        Creates a new entry in the loaded log file
         example:
             entry -> walk through
 
@@ -245,7 +245,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_max(args):
         """
-        Finds the top estimated max for a lift in a specified time frame (weeks)
+        finds the top estimated max for a lift in a specified time frame (weeks)
         example:
                 max -> walk through
                 max bench -> finds best bench of all time
@@ -278,7 +278,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_top(args):
         """
-        Finds the top x RM set for a lift in the past y weeks
+        finds the top x RM set for a lift in the past y weeks
         example:
                 top -> walk through
                 top bench, 9 -> finds best bench 9 rm of all time
@@ -415,7 +415,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_past(args):
         """
-        Finds the past sessions within the past x weeks or the past x sessions for y lift
+        finds the past sessions within the past x weeks or the past x sessions for y lift
         example:
                 past -> walk through
                 past 9 -> shows the sessions from the past 9 weeks
@@ -452,7 +452,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_age(args):
         """
-        Prints the first and last entry for the log and how many days are tracked in the log.
+        prints the first and last entry for the log and how many days are tracked in the log.
         """
 
         last, first = curr_log['Date'].iloc[0], curr_log['Date'].iloc[-1]
@@ -467,7 +467,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_pril(args):
         """
-        Generates Prilepin's Chart and a Hypertrophy version. The standard one is considered useful for power movements and the hypertrophy one is good for volume training.
+        generates Prilepin's Chart and a Hypertrophy version. The standard one is considered useful for power movements and the hypertrophy one is good for volume training.
             example:
             pril -> walk through
             pril bench -> generates charts based off your est max bench
@@ -500,7 +500,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_bf(args):
         """
-        Calculates the users bf% using the navy seal method
+        calculates the users bf% using the navy seal method
             example:
             bf -> walk through
             bf male -> calculates bf% off last weight entry
@@ -535,7 +535,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_diet(args):
         """
-        Calculates the users TDEE / recommended caloric intake, Recommends calories for bulking & cutting and recommends macros based on goal.
+        calculates the users TDEE / recommended caloric intake, Recommends calories for bulking & cutting and recommends macros based on goal.
             example:
             diet -> walk through
             diet 13 -> calculates the users tdee @ 13% bf with a prompt for bulking or cutting
@@ -572,8 +572,8 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_plan(args):
         """
-        After creating a diet profile using diet(). Plan() will create a plan for you to achieve your next goal using your profile information.
-        Example:
+        after creating a diet profile using diet(). Plan() will create a plan for you to achieve your next goal using your profile information.
+        example:
             plan -> walk through
             plan 200 -> plans goal til 200 jumping by default (1 week)
             plan 200, 2 -> plans goal til 200 jumping by 2 week intervals
@@ -602,7 +602,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_graph_weight(args):
         """
-        Graphs the users body weight over a specified period
+        graphs the users body weight over a specified period
         example:
             graph_weight -> walk through
             graph_weight 9 -> graph body weight from the past 9 weeks
@@ -632,7 +632,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_graph_maxes(args):
         """
-        Graphs the users lift max over a specified period
+        graphs the users lift max over a specified period
         example:
             graph_maxes -> walk through
             graph_maxes 9 -> graph est 1rm from the past 9 weeks
@@ -658,7 +658,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_graph_freq(args):
         """
-        Graphs the users lift frequency over a specified period
+        graphs the users lift frequency over a specified period
         example:
             graph_freq -> walk through
             graph_freq 9 -> graph lifts from the past 9 weeks
@@ -688,7 +688,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_inol(args):
         """
-        Calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
+        calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
         the Intensity(weight) and the number of lifts(NOL) otherwise known as INOL.
 
         Recommendations for INOL scores are as following:
@@ -755,7 +755,7 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_sample(args):
         """
-        Creates a sample progression for the requested lift using the INOL chart. Each row represents a new session.
+        creates a sample progression for the requested lift using the INOL chart. Each row represents a new session.
 
         example:
                 sample -> walk through
