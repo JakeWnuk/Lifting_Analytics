@@ -4,7 +4,9 @@ current version = 1.1
 ```
 
 ### About
-This script was designed for use in regards to tracking compound movements for resistance training. Groups that may find this helpful are powerlifters, bodybuilders, olympic lifters, and weight training enthusiasts. After loading in a log file with the proper headings, you can analyze the log file as a dataset. 
+This script is designed for use in regards to tracking compound movements for resistance training. Groups that may find this helpful are powerlifters, bodybuilders, Olympic lifters, and weight training enthusiasts. To implement this script into your training, you should record your best set each workout for each unique barbell lift you do. By only recording the best set you know your data will reflect your best effort. You can create a blank log file within the script and save it on the cloud and edit it while you are in the gym.
+
+After loading in a log file with the proper headings, you can analyze the log file as a dataset. 
 
 Log files must have the following headings:
 
