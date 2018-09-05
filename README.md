@@ -78,6 +78,7 @@ Release 1.0:
   <li>Launched with the following functions:</li>
     <ul>
       <li>max</li>
+      <li>testing</li>
       <li>top</li>
       <li>rm</li>
       <li>stats</li>
