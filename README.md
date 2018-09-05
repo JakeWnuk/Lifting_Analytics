@@ -91,11 +91,11 @@ Release 1.0:
   </ul>
     <li>Launched with the following file functions:</li>
     <ul>
-      <li><b>load</b></li>
-      <li><b>blank_log</b></li>
-      <li><b>save</b></li>
-      <li><b>dir</b></li>
-      <li><b>entry</b></li>
+      <li><b>load</b>: Loads into a df a csv / excel file in a log file format. Launches a file selector.</li>
+      <li><b>blank_log</b>: Prints a blank log csv file to the selected dir</li>
+      <li><b>save</b>: Saves the sessions items to the selected directory</li>
+      <li><b>dir</b>: Changes the directory of the output file.</li>
+      <li><b>entry</b>: Creates a new entry in the loaded log file</li>
   </ul>
 </ul>
 Release 1.1:
