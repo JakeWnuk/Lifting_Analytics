@@ -77,14 +77,14 @@ Release 1.0:
 <ul>
   <li>Launched with the following functions:</li>
     <ul>
-      <li>max -> Finds the top estimated max for a lift in a specified time frame (weeks)</li>
-      <li>top</li>
-      <li>rm</li>
-      <li>stats</li>
-      <li>wilks</li>
-      <li>past</li>
-      <li>age</li>
-      <li>pril</li>
+      <li>max: finds the top estimated max for a lift in a specified time frame (weeks)</li>
+      <li>top: finds the top x RM set for a lift in the past y weeks</li>
+      <li>rm: prints out the estimate RM table for a given weight and reps. Most accurate below 10 reps.</li>
+      <li>stats: reports stats for a lift in a specified time frame (weeks)</li>
+      <li>wilks: reports the users estimated wilks score at a certain body weight</li>
+      <li>past: finds the past sessions within the past x weeks or the past x sessions for y lift</li>
+      <li>age: prints the first and last entry for the log and how many days are tracked in the log.</li>
+      <li>pril: generates Prilepin's Chart and a Hypertrophy version. The standard one is considered useful for power movements and the hypertrophy one is good for volume training.</li>
       <li>bf</li>
       <li>diet</li>
       <li>plan</li>
