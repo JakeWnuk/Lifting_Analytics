@@ -4,7 +4,9 @@ current version = 1.1
 ```
 
 ### About
-This script was designed for use in regards to tracking compound movements for resistance training. Groups that may find this helpful are powerlifters, bodybuilders, olympic lifters, and weight training enthusiasts. After loading in a log file with the proper headings, you can analyze the log file as a dataset. 
+This script is designed for tracking compound movements for resistance training. Groups that may find this helpful are powerlifters, bodybuilders, Olympic lifters, and weight training enthusiasts. To implement this script into your training, you should record your best set each workout for each unique barbell lift you do. By only recording the best set you know your data will reflect your best effort. You can create a blank log file within the script and save it on the cloud and edit it while you are in the gym. You can then use the built in functions to make decisions about your training. Such as setting up your diet, creating a program, finding openers, calcuating body fat, ect.
+
+After loading in a log file with the proper headings, you can analyze the log file as a dataset. 
 
 Log files must have the following headings:
 
@@ -36,12 +38,17 @@ A log file is needed to perform actions. You can create a blank log with <b>blan
 This is the proper formatting of a log file:
 
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/log_example.JPG">
+  <img alt="log example" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/log_example.JPG">
 </p>
 
 Log files can be either excel or csv files.
 
 After formatting the log file, you can then load it in with <b>load</b> in the file menu.
+
+How to load a log:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/getting_started.JPG">
+</p>
 
 You can add entries to the loaded log file with <b>entry</b> in the file menu. You can also add entries manually but remember to increase the index column.
 
@@ -55,20 +62,25 @@ The currently available menus are the file, data, and home. Type the name of a m
 
 Example functions inside <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
+  <img alt="functions" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
 </p>
 
 Calculating calories and macros inside <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/diet_example.JPG">
+  <img alt="calories and macros" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/diet_example.JPG">
 </p>
 
-Creating a plan using your profile informatin <b>Data</b>:
+Creating a plan using your profile information <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/plan_example.JPG">
+  <img alt="plan" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/plan_example.JPG">
 </p>
 
 Note: to use <b>plan</b> you must first use <b>diet</b> in the data menu
+
+Graphing Examples using <b>graph_maxes</b>:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/graph_example.JPG">
+</p>
 
 
 ## Changes Log:
