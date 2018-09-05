@@ -77,8 +77,7 @@ Release 1.0:
 <ul>
   <li>Launched with the following functions:</li>
     <ul>
-      <li>max</li>
-      <li>testing</li>
+      <li>max -> Finds the top estimated max for a lift in a specified time frame (weeks)</li>
       <li>top</li>
       <li>rm</li>
       <li>stats</li>
