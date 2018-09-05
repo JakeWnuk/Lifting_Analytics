@@ -85,9 +85,9 @@ Release 1.0:
       <li>past: finds the past sessions within the past x weeks or the past x sessions for y lift</li>
       <li>age: prints the first and last entry for the log and how many days are tracked in the log.</li>
       <li>pril: generates Prilepin's Chart and a Hypertrophy version. The standard one is considered useful for power movements and the hypertrophy one is good for volume training.</li>
-      <li>bf</li>
-      <li>diet</li>
-      <li>plan</li>
+      <li>bf: calculates the users bf% using the navy seal method</li>
+      <li>diet: calculates the users TDEE / recommended caloric intake, Recommends calories for bulking & cutting and recommends macros based on goal.</li>
+      <li>plan: after creating a diet profile using diet(). Plan() will create a plan for you to achieve your next goal using your profile information.</li>
   </ul>
     <li>Launched with the following file functions:</li>
     <ul>
@@ -102,11 +102,12 @@ Release 1.1:
 <ul>
   <li>Added the following functions:</li>
     <ul>
-      <li>graph_weight</li>
-      <li>graph_maxes</li>
-      <li>graph_freq</li>
-      <li>inol</li>
-      <li>sample</li>
+      <li>graph_weight: graphs the users body weight over a specified period</li>
+      <li>graph_maxes: graphs the users lift max over a specified period</li>
+      <li>graph_freq: graphs the users lift frequency over a specified period</li>
+      <li>inol: calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
+        the intensity(weight) and the number of lifts(NOL) otherwise known as INOL.</li>
+      <li>sample: creates a sample progression for the requested lift using the INOL chart.</li>
   </ul>
   <li>Improved readability</li>
   <li>Updated documentation</li>
