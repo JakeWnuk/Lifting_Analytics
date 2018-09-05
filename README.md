@@ -36,12 +36,17 @@ A log file is needed to perform actions. You can create a blank log with <b>blan
 This is the proper formatting of a log file:
 
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/log_example.JPG">
+  <img alt="log example" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/log_example.JPG">
 </p>
 
 Log files can be either excel or csv files.
 
 After formatting the log file, you can then load it in with <b>load</b> in the file menu.
+
+How to load a log:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/getting_started.JPG">
+</p>
 
 You can add entries to the loaded log file with <b>entry</b> in the file menu. You can also add entries manually but remember to increase the index column.
 
@@ -55,20 +60,25 @@ The currently available menus are the file, data, and home. Type the name of a m
 
 Example functions inside <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
+  <img alt="functions" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/example_data_functions.JPG">
 </p>
 
 Calculating calories and macros inside <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/diet_example.JPG">
+  <img alt="calories and macros" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/diet_example.JPG">
 </p>
 
-Creating a plan using your profile informatin <b>Data</b>:
+Creating a plan using your profile information <b>Data</b>:
 <p align="center">
-  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/plan_example.JPG">
+  <img alt="plan" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/plan_example.JPG">
 </p>
 
 Note: to use <b>plan</b> you must first use <b>diet</b> in the data menu
+
+Graphing Examples using <b>graph_maxes</b>:
+<p align="center">
+  <img alt="Home Menu" src="https://github.com/JakeWnuk/Lifting_Analytics/blob/master/img/graph_example.JPG">
+</p>
 
 
 ## Changes Log:
