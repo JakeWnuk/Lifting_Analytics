@@ -755,12 +755,11 @@ class DataCommands(MyPrompt):
     @staticmethod
     def do_sample(args):
         """
-        creates a sample progression for the requested lift using the INOL chart. Each row represents a new session.
+        shows a large range of reps and INOL score weights for the given lift
 
         example:
                 sample -> walk through
-                sample squat -> shows INOL progression for squat
-                sample squat, volume -> shows the volume INOL progression for squat
+                sample squat -> shows generic INOL for squat
         """
 
         try:

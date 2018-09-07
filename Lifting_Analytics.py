@@ -596,17 +596,39 @@ def inol(log, lift, score, reps, weeks=4):
 
 def sample(log, lift, key='average'):
     """
-    Creates a sample progression scheme using INOL with each row in the df representing a new week
+    shows a large range of reps and INOL score weights for the given lift
 
     :param key: key used in the dict to specify what template
     :param log: log filed used for est 1RM
     :type lift: object lift being looked for
     :return: tuple of a volume template and a intensity template
     """
+
+    i=10
+    sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
+
+    # iteration
+    while i <= 45:
+        # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
+        program_dict = {'average': ([.5, .7, .9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3], [i, i, i, i, i, i, i, i, i, i])}   # this is real bad don't judge me. Its taken from program()
+
+        # creates a tuple holding lists and the df
+        z = zip(program_dict[key][0], program_dict[key][1])
+
+        for p in z:
+            x = inol(log, str(lift), p[0], p[1])
+            piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': p[1], 'INOL': p[0]}, index=[0])
+            sd = sd.append(piece, ignore_index=True, sort=False)
+        i += 5
+
+    return sd
+
+def program(log, lift, key='average'):
+
     # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
     program_dict = {
                     'volume': ([.75, .85, .75, .85, .95],[25, 25, 20, 20, 10]),
-                    'average': ([.75, .95, .85, 1.05, 1.2], [25, 25, 20, 20, 15])
+                    'average': ([.5, .8, 1.1, 1.4, 1.7, 2, 2.3], [25, 25, 25, 25, 25, 25, 25])
                     }
 
     # creates a tuple holding lists and the df
@@ -619,6 +641,17 @@ def sample(log, lift, key='average'):
         piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': i[1], 'INOL': i[0]}, index=[0])
         sd = sd.append(piece, ignore_index=True, sort=False)
 
-    print(' \n Using template: ' + str(key))
     return sd
 
+def testing():
+
+    curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
+    curr_log['Lift'] = curr_log['Lift'].str.lower()
+    curr_log['Date'] = pd.to_datetime(curr_log.Date)
+    curr_log = curr_log.sort_values(by='Date', ascending=False)
+    curr_log = curr_log.reset_index(drop=True)
+    print("The log has been read in. \n")
+
+    print(sample(curr_log, 'bench').to_string())
+
+testing()
