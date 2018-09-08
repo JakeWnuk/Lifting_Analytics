@@ -749,8 +749,8 @@ class DataCommands(MyPrompt):
             print('\n Recommended weight for '+ str(lift) + ' over ' + str(reps) + ' total reps for a INOL of ' + str(score))
             print('\n'+str(x)+'\n')
 
-        except ValueError:
-            print('Error')
+        except (ValueError, IndexError):
+            print('Please check syntax')
 
     @staticmethod
     def do_sample(args):
@@ -777,7 +777,7 @@ class DataCommands(MyPrompt):
                     template = 'average'
 
 
-            print('\n' + str(log.sample(curr_log, str(name), str(template).strip())) + '\n')
+            print('\n' + (log.sample(curr_log, str(name), str(template).strip())).to_string() + '\n')
 
         except KeyError:
             print("\n Please check syntax \n")

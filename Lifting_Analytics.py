@@ -654,4 +654,4 @@ def testing():
 
     print(sample(curr_log, 'bench').to_string())
 
-testing()
+
