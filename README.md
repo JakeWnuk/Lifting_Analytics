@@ -119,7 +119,7 @@ Release 1.1:
       <li><b>graph_freq</b>: graphs the users lift frequency over a specified period</li>
       <li><b>inol</b>: calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
         the intensity(weight) and the number of lifts(NOL) otherwise known as INOL.</li>
-      <li><b>sample</b>: creates a sample progression for the requested lift using the INOL chart.</li>
+      <li><b>sample</b>: shows a wide range of INOL scores and reps for the requested lift using the INOL chart.</li>
   </ul>
   <li>Improved readability</li>
   <li>Updated documentation</li>
