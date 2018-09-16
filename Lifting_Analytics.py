@@ -423,9 +423,10 @@ def wilks(log, weight, male=True, metric=False):
     return int(total_kg * coefficient)
 
 
-def top_max(log, lift, w, reps=0):
+def top_max(log, lift, w, reps=0, avg=False):
     """
     Estimates the users top 1RM
+    :param avg: Takes the average of the 1RM col or not
     :param reps: used in looking for top sets, checks for only sets with x rm
     :param lift: The lift the user is finding
     :param w: How many weeks to search
@@ -448,7 +449,10 @@ def top_max(log, lift, w, reps=0):
         est_max = (estimate_rm(1, row['Weight'], row['RM']))
         log.loc[i, 'EST_1RM'] = est_max
 
-    best = log.loc[log['EST_1RM'].idxmax()]
+    if avg:
+        best = log['EST_1RM'].mean()
+    else:
+        best = log.loc[log['EST_1RM'].idxmax()]
 
     return best
 
@@ -576,7 +580,7 @@ def inol(log, lift, score, reps, weeks=4):
     inol_map = pd.read_excel('INOL HEAT MAP.xlsx')
 
     # getting that max
-    mx = top_max(log, lift, weeks)
+    mx = top_max(log, lift, weeks, avg=True)
 
     # locking the row and fetching the %
     map = inol_map.iloc[reps - 1]
@@ -589,7 +593,7 @@ def inol(log, lift, score, reps, weeks=4):
     percentage = (map.index.get_values() / 100)
 
     # fetches the rounded weight at that inol based off its %
-    inol_weight = round(float(percentage * mx[5]))
+    inol_weight = round(float(percentage * mx))
 
     return inol_weight
 
@@ -652,6 +656,7 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    print(sample(curr_log, 'bench').to_string())
+    print(inol(curr_log, 'bench',2,2,4))
 
 
+#testing()
