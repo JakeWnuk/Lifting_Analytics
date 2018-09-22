@@ -143,7 +143,7 @@ class FileCommands(MyPrompt):
             # do some formatting to ensure quality
             curr_log['Lift'] = curr_log['Lift'].str.lower()
             curr_log['Date'] = pd.to_datetime(curr_log.Date)
-            curr_log = curr_log.sort_values(by='Date', ascending=False)
+            curr_log = curr_log.sort_values(by='Date', ascending=True)
             curr_log = curr_log.reset_index(drop=True)
             print("The log has been read in. \n")
         except (FileNotFoundError, AttributeError):
@@ -168,7 +168,7 @@ class FileCommands(MyPrompt):
 
         # if no args are provided do a walk through
         while args == "":
-            args = input("What type of file would you like to save? \n log or report?")
+            args = input("What type of file would you like to save? \n log or report?\n")
 
         # checks for log
         if str(args).lower() == "log":
@@ -178,11 +178,11 @@ class FileCommands(MyPrompt):
                 curr_log = curr_log.dropna(how='all')
                 curr_log['Lift'] = curr_log['Lift'].str.lower()
                 curr_log['Date'] = pd.to_datetime(curr_log.Date)
-                curr_log = curr_log.sort_values(by='Date', ascending=False)
+                curr_log = curr_log.sort_values(by='Date', ascending=True)
                 curr_log = curr_log.reset_index(drop=True)
 
-                curr_log.to_csv(
-                    os.path.join(str(curr_directory), 'Lifting Log' + str(datetime.now().strftime("_%Y")) + ".csv"),
+                curr_log.to_excel(
+                    os.path.join(str(curr_directory), 'Lifting Log' + str(datetime.now().strftime("_%Y")) + ".xlsx"),
                     index=[0])
                 print('The log has been saved to ' + str(curr_directory) + '\n')
         # checks for report
@@ -233,7 +233,7 @@ class FileCommands(MyPrompt):
 
         curr_log['Lift'] = curr_log['Lift'].str.lower()
         curr_log['Date'] = pd.to_datetime(curr_log.Date)
-        curr_log = curr_log.sort_values(by='Date', ascending=False)
+        curr_log = curr_log.sort_values(by='Date', ascending=True)
         curr_log = curr_log.reset_index(drop=True)
 
         print('The entry has been added. \n')
@@ -689,7 +689,7 @@ class DataCommands(MyPrompt):
     def do_inol(args):
         """
         calculates the weight that should be done for X total reps to achieve the desired INOL. INOL is a formula that gives a relation between
-        the Intensity(weight) and the number of lifts(NOL) otherwise known as INOL.
+        the Intensity(weight) and the number of lifts(NOL) otherwise known as INOL. This will take data from the past 4 weeks.
 
         Recommendations for INOL scores are as following:
 
@@ -749,7 +749,7 @@ class DataCommands(MyPrompt):
             print('\n Recommended weight for '+ str(lift) + ' over ' + str(reps) + ' total reps for a INOL of ' + str(score))
             print('\n'+str(x)+'\n')
 
-        except (ValueError, IndexError):
+        except (ValueError, IndexError, KeyError):
             print('Please check syntax')
 
     @staticmethod

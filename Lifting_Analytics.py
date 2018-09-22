@@ -652,7 +652,7 @@ def testing():
     curr_log = pd.read_csv('Lifting Log_2018.csv', index_col=[0]).dropna(how='all')
     curr_log['Lift'] = curr_log['Lift'].str.lower()
     curr_log['Date'] = pd.to_datetime(curr_log.Date)
-    curr_log = curr_log.sort_values(by='Date', ascending=False)
+    curr_log = curr_log.sort_values(by='Date', ascending=True)
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
