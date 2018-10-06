@@ -657,6 +657,3 @@ def testing():
     print("The log has been read in. \n")
 
     graph_maxes(curr_log,99)
-
-
-testing()
