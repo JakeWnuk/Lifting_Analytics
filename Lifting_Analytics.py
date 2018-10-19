@@ -608,11 +608,11 @@ def sample(log, lift, key='average'):
     :return: tuple of a volume template and a intensity template
     """
 
-    i=10
+    i=5
     sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
 
     # iteration
-    while i <= 45:
+    while i <= 50:
         # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
         program_dict = {'average': ([.5, .7, .9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3], [i, i, i, i, i, i, i, i, i, i])}   # this is real bad don't judge me. Its taken from program()
 
