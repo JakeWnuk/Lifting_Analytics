@@ -564,7 +564,7 @@ def graph_freq(log, w):
     plt.show()
 
 
-def inol(log, lift, score, reps, weeks=4):
+def inol(log, lift, score, reps, weeks=6):
     """
     Used the INOL chart to give a recommended weight at an INOL score for a lift.
     :param log: log file to be used
