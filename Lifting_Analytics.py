@@ -656,4 +656,7 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    graph_maxes(curr_log,99)
+    r = program(curr_log, 'bench')
+    print(r)
+
+#testing()
