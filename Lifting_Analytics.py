@@ -627,12 +627,18 @@ def sample(log, lift, key='average'):
 
     return sd
 
-def program(log, lift, key='average'):
+def program(log, lift, key):
 
     # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
     program_dict = {
-                    'volume': ([.75, .85, .75, .85, .95],[25, 25, 20, 20, 10]),
-                    'average': ([.5, .8, 1.1, 1.4, 1.7, 2, 2.3], [25, 25, 25, 25, 25, 25, 25])
+                    'str_t1_upper': ([1, 1, 1],[12, 8, 4]),
+                    'str_t2_upper': ([1, 1, 1],[20, 15, 10]),
+                    'str_t1_lower': ([.8, .8, .8], [12, 8, 4]),
+                    'str_t2_lower': ([.6, .6, .6],[15, 12, 10]),
+                    'hyp_t1_upper': ([1, 1, 1],[30, 25, 20]),
+                    'hyp_t2_upper': ([1, 1, 1], [35, 30, 25]),
+                    'hyp_t1_lower': ([1,1,1], [30, 25, 20]),
+                    'hyp_t2_lower': ([1,1,1], [35, 30, 25])
                     }
 
     # creates a tuple holding lists and the df
@@ -656,7 +662,20 @@ def testing():
     curr_log = curr_log.reset_index(drop=True)
     print("The log has been read in. \n")
 
-    r = program(curr_log, 'bench')
+    r = program(curr_log, 'squat', 'str_t1_lower')
+    q = program(curr_log, 'bench', 'str_t2_upper')
+    r = r.append(q)
     print(r)
+    print(program(curr_log, 'deadlift', 'str_t2_lower'))
+    print(program(curr_log, 'bench', 'str_t1_upper'))
+    print(program(curr_log, 'row', 'hyp_t2_upper'))
+    print(program(curr_log, 'deadlift', 'str_t1_lower'))
+    print(program(curr_log, 'bench', 'hyp_t2_upper'))
+    print(program(curr_log, 'squat', 'str_t2_lower'))
+    print(program(curr_log, 'bench', 'hyp_t1_upper'))
+    print(program(curr_log, 'row', 'hyp_t2_upper'))
 
-#testing()
+
+
+
+testing()

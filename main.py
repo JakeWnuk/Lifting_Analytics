@@ -782,6 +782,10 @@ class DataCommands(MyPrompt):
         except KeyError:
             print("\n Please check syntax \n")
 
+    @staticmethod
+    def do_program(args):
+        """This function will generate a sample program that can be used."""
+
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via input() and return their answer.
 
