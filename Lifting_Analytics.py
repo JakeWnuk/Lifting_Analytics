@@ -580,7 +580,16 @@ def inol(log, lift, score, reps, weeks=6):
     inol_map = pd.read_excel('INOL HEAT MAP.xlsx')
 
     # getting that max
-    mx = top_max(log, lift, weeks, avg=True)
+
+    mx = 0
+    r = 1
+
+    while mx == 0:
+        try:
+            mx = top_max(log, lift, weeks, reps=r, avg=True)
+        except:
+            r += 1
+
 
     # locking the row and fetching the %
     map = inol_map.iloc[reps - 1]
@@ -678,4 +687,3 @@ def testing():
 
 
 
-testing()
