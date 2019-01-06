@@ -636,54 +636,6 @@ def sample(log, lift, key='average'):
 
     return sd
 
-def program(log, lift, key):
-
-    # dict to hold all the programs in the following format: INOL Score, Total Reps as a tuple
-    program_dict = {
-                    'str_t1_upper': ([1, 1, 1],[12, 8, 4]),
-                    'str_t2_upper': ([1, 1, 1],[20, 15, 10]),
-                    'str_t1_lower': ([.8, .8, .8], [12, 8, 4]),
-                    'str_t2_lower': ([.6, .6, .6],[15, 12, 10]),
-                    'hyp_t1_upper': ([1, 1, 1],[30, 25, 20]),
-                    'hyp_t2_upper': ([1, 1, 1], [35, 30, 25]),
-                    'hyp_t1_lower': ([1,1,1], [30, 25, 20]),
-                    'hyp_t2_lower': ([1,1,1], [35, 30, 25])
-                    }
-
-    # creates a tuple holding lists and the df
-    z = zip(program_dict[key][0], program_dict[key][1])
-    sd = pd.DataFrame(columns={'Lift', 'Weight', 'Total Reps', 'INOL'})
-
-    # iteration
-    for i in z:
-        x = inol(log, str(lift), i[0], i[1])
-        piece = pd.DataFrame({'Lift': str(lift), 'Weight': x, 'Total Reps': i[1], 'INOL': i[0]}, index=[0])
-        sd = sd.append(piece, ignore_index=True, sort=False)
-
-    return sd
-
-def testing():
-
-    curr_log = pd.read_excel('Lifting Log_2018.xlsx', index_col=[0]).dropna(how='all')
-    curr_log['Lift'] = curr_log['Lift'].str.lower()
-    curr_log['Date'] = pd.to_datetime(curr_log.Date)
-    curr_log = curr_log.sort_values(by='Date', ascending=True)
-    curr_log = curr_log.reset_index(drop=True)
-    print("The log has been read in. \n")
-
-    r = program(curr_log, 'squat', 'str_t1_lower')
-    q = program(curr_log, 'bench', 'str_t2_upper')
-    r = r.append(q)
-    print(r)
-    print(program(curr_log, 'deadlift', 'str_t2_lower'))
-    print(program(curr_log, 'bench', 'str_t1_upper'))
-    print(program(curr_log, 'row', 'hyp_t2_upper'))
-    print(program(curr_log, 'deadlift', 'str_t1_lower'))
-    print(program(curr_log, 'bench', 'hyp_t2_upper'))
-    print(program(curr_log, 'squat', 'str_t2_lower'))
-    print(program(curr_log, 'bench', 'hyp_t1_upper'))
-    print(program(curr_log, 'row', 'hyp_t2_upper'))
-
 
 
 

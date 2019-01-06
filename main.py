@@ -7,9 +7,16 @@
 """
  Description: A program that reads a predictable template and outputs stats about the user
  Input: A predictable template in a  excel or csv file.
+
+ To do:
+
+ - print out est maxes into an excel sheet for each day w/ lift filtered
+ - example: one page for deadlift with log + est max col for graphing
 """
 
 # key error on load if template wrong
+
+
 
 import os
 import sys
