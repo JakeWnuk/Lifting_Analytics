@@ -1,7 +1,6 @@
 #! python3
 
 # Author Jake Wnuk
-# LinkedIn: www.linkedin.com/in/jakewnuk
 # Lifting Analytics
 
 """
@@ -54,7 +53,7 @@ class MyPrompt(Cmd):
         f = open('banner.txt', 'r')
         banner = f.read()
         print(banner)
-        prompt.cmdloop('\n Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
+        prompt.cmdloop('\n | Type help for commands | Type help <command> for documentation. \n')
 
     @staticmethod
     def do_file(args):
@@ -85,8 +84,7 @@ class MyPrompt(Cmd):
             print(r"""
 
             This script was written by Jake Wnuk.
-            LinkedIn https://www.linkedin.com/in/jakewnuk/
-            Git: https://github.com/JakeWnuk
+            Github: https://github.com/JakeWnuk
             """)
 
     @staticmethod
@@ -833,4 +831,4 @@ if __name__ == '__main__':
     banner = f.read()
     print(banner)
 
-    prompt.cmdloop('Jake Wnuk| Type help for commands | Type help <command> for documentation. \n')
+    prompt.cmdloop('| Type help for commands | Type help <command> for documentation. \n')
