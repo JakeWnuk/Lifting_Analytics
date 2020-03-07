@@ -83,7 +83,7 @@ Graphing Examples using <b>graph_maxes</b>:
 </p>
 
 
-## Changes Log:
+## Change Log:
 
 Release 1.0:
 <ul>
