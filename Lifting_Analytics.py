@@ -1,7 +1,6 @@
 #! python3
 
 # Author Jake Wnuk
-# LinkedIn: www.linkedin.com/in/jakewnuk
 # Lifting Analytics
 
 """
